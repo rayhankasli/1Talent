@@ -1,0 +1,195 @@
+<!-- Section heading -->
+<div
+  class="section-heading d-flex justify-content-between align-items-center p-2 flex-shrink-0 border border-bottom-primary">
+  <h5 class="title-heading m-0 text-module-heading">Manage Vacancies</h5>
+
+  <button (click)="openModalForm()" type="button" class="btn btn-info" data-toggle="modal" data-target="#Add"><span
+      class="fa fa-plus" aria-hidden="true"></span> ADD
+    NEW</button>
+</div>
+<!-- Start: Table -->
+
+
+<!-- Table heading -->
+<table class="table table-responsive-md table-borderless m-0 px-3 ">
+  <thead class="table-header w-100 px-2 pt-2 ">
+    <tr class="table-heading text-table-heading ">
+      <th class="col-s-1">NO.</th>
+      <th class="col-s-2">JOB NAME</th>
+      <th class="col-s-2">NO. OF VACANCY</th>
+      <th class="col-s-2">EXPERIENCE</th>
+      <th class="col-s-2">DOMAIN NAME</th>
+      <th class="col-s-2">TECHNOLOGY</th>
+      <th class="col-s-1">STATUS</th>
+      <th class="col-s-1">ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody class="px-2 overflow-auto pb-2">
+    <tr class="table-data" *ngFor="let vacancy of vacancies; let i=index">
+      <td>{{ i+1 }}</td>
+      <td>{{ vacancy.jobName }}</td>
+      <td>{{ vacancy.vacancies }}</td>
+      <td>{{ vacancy.experience }}</td>
+      <td>{{ vacancy.domainName }}</td>
+      <td>{{ vacancy.technologyId }}</td>
+      <td>Saved</td>
+      <td>
+        <a href="#">
+          <img src="../../../assets/img/logo/actions_edit.png" alt="Edit-icon" class="operation-icon">
+        </a>
+        <a href="#">
+          <img src="../../../assets/img/logo/actions_duplicate.png" alt="copy-icon" class="operation-icon">
+        </a>
+        <a href="#">
+          <img src="../../../assets/img/logo/actions_delete.png" alt="delete-icon" class="operation-icon">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- End : Table -->
+
+
+<!-- Start : Add vacancy -->
+
+<aside class="form-section bg-white d-flex flex-column flex-grow-1 position-absolute h-100 " id="AddVacancy"
+  *ngIf="show">
+
+  <!-- Start: form -->
+  <div
+    class="form-heading d-flex justify-content-between align-items-center flex-shrink-0 p-3 bg-light border border-bottom-light">
+    <h5 class=" text-module-heading m-0">Add New Job</h5>
+    <a (click)="closeModalForm()">
+      <img src="../../../assets/img/logo/actions_close.png" alt="close">
+    </a>
+  </div>
+  <div class="form-wrapper pt-2 d-flex mx-auto overflow-auto h-100 w-100">
+    <form class="form" [formGroup]="vacancyForm">
+      <div class="form-group">
+        <label for="Job-name">Job Name</label>
+        <input class="form-control form-control-sm" type="text" id="Job-name" formControlName="jobName">
+        <div
+          *ngIf="vacancyForm.get('jobName').invalid && (vacancyForm.get('jobName').dirty || vacancyForm.get('jobName').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('jobName').errors.required"> Job Name is required</div>
+          <div *ngIf="vacancyForm.get('jobName').errors.minlength"> Job Name must have minimum 5 characters</div>
+          <div *ngIf="vacancyForm.get('jobName').errors.maxlength"> Job Name should not exceed 30 characters</div>
+          <div *ngIf="vacancyForm.get('jobName').errors.invalidcharacters">Only characters are allowed</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="vacancy">No. of Vacancy</label>
+        <input class="form-control form-control-sm" id="vacancy" type="number" formControlName="vacancies">
+        <div
+          *ngIf="vacancyForm.get('vacancies').invalid && (vacancyForm.get('vacancies').dirty || vacancyForm.get('vacancies').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('vacancies').errors.required">No. of vacancies is required</div>
+          <div *ngIf="vacancyForm.get('vacancies').errors.invalidnumber">Only Numbers are allowed</div>
+          <div *ngIf="vacancyForm.get('vacancies').errors.invalidvacancy">Number should be between 1 to 50</div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="experience">Experience</label>
+        <input class="form-control form-control-sm" id="experience" type="text" formControlName="experience">
+        <div
+          *ngIf="vacancyForm.get('experience').invalid && (vacancyForm.get('experience').dirty || vacancyForm.get('experience').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('experience').errors.required">Experience is required</div>
+          <div *ngIf="vacancyForm.get('experience').errors.invalidnumbers">Only Numbers with one decimal point or a plus
+            is allowed
+          </div>
+          <div *ngIf="vacancyForm.get('experience').errors.invalidRange">Experience should not be greater then 30 years
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="domain">Domain</label>
+        <select class="form-control form-control-sm" id="domain" formControlName="domainId">
+          <option value="" disabled>Select Domain
+          </option>
+          <option *ngFor="let Domain of domain; let i=index" [ngValue]="Domain.domainId">{{ Domain.domainName }}
+          </option>
+        </select>
+        <div
+          *ngIf="vacancyForm.get('domainId').invalid && (vacancyForm.get('domainId').dirty || vacancyForm.get('domainId').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('domainId').errors.required">Domain is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="technology">Technology</label>
+        <select class="form-control form-control-sm dropdownMenu" id="technology" formControlName="technologyId">
+          <option value="" disabled>Select Technology</option>
+          <option *ngFor="let Technology of technology; let i=index" [ngValue]="Technology.technologyId">{{ Technology.technologyName }}
+          </option>
+        </select>
+        <div
+          *ngIf="vacancyForm.get('technologyId').invalid && (vacancyForm.get('technologyId').dirty || vacancyForm.get('technologyId').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('technologyId').errors.required">Technology is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <select class="form-control form-control-sm " id="designation" formControlName="designationId">
+          <option value="" disabled>Select Designation</option>
+          <option *ngFor="let Designation of designation; let i=index" [ngValue]="Designation.designationId">{{ Designation.designationTitle }}
+          </option>
+        </select>
+        <div
+          *ngIf="vacancyForm.get('designationId').invalid && (vacancyForm.get('designationId').dirty || vacancyForm.get('designationId').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('designationId').errors.required">Designation is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="city">Country</label>
+        <select class="form-control form-control-sm " id="city" formControlName="countryId">
+          <option value="" disabled>Select Country</option>
+          <option *ngFor="let Country of country; let i=index" [ngValue]="Country.countryId">{{ Country.countryName }}</option>
+        </select>
+        <div
+          *ngIf="vacancyForm.get('countryId').invalid && (vacancyForm.get('countryId').dirty || vacancyForm.get('countryId').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('countryId').errors.required">Country is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="job-description">Job Description</label>
+        <textarea class="form-control form-control-sm" id="job-description" rows="3"
+          formControlName="jobDescription"></textarea>
+        <div
+          *ngIf="vacancyForm.get('jobDescription').invalid && (vacancyForm.get('jobDescription').dirty || vacancyForm.get('jobDescription').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('jobDescription').errors.required">Job Description is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="responsibility">Responsibility and Skills</label>
+        <textarea class="form-control form-control-sm" id="responsibility" rows="3"
+          formControlName="responsibilities"></textarea>
+        <div
+          *ngIf="vacancyForm.get('responsibilities').invalid && (vacancyForm.get('responsibilities').dirty || vacancyForm.get('responsibilities').touched)"
+          class="alert alert-danger">
+          <div *ngIf="vacancyForm.get('responsibilities').errors.required">Responsibility and Skills is required</div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <footer class="form-foot p-3">
+    <button type="button" class="btn btn-info px-3 mx-2 my-1">Schedule</button>
+    <button type="button" class="btn btn-info px-3 mx-2">Publish</button>
+    <button type="submit" class="btn btn-info px-3 mx-2" (click)="onSubmit()">Save</button>
+  </footer>
+</aside>
+<!-- End : Add vacancy -->
