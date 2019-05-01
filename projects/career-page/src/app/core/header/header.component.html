@@ -10,32 +10,12 @@
         <span class="fas fa-bars"></span>
       </button>
       <!-- Collapsible Section menu -->
-      <div id="collapse_target" class="collapse navbar-collapse mr-auto">
-        <ul class="navbar-nav ml-auto ">
-          <li class="nav-item">
-            <a href="#" class="nav-link"> ABOUT US </a>
-          </li>
-          <li class="nav-item ">
-            <a href="#" class="nav-link"> OUR DIVISION </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link"> OUR WORK </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link"> PRODUCT </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link"> INSIGHTS </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link"> NEWS </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" routerLink="/Careers"> CAREERS </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link"> CONTACT US </a>
-          </li>
+      <!-- Add show class -->
+      <div id="collapse_target" class="collapse navbar-collapse mr-auto" #remove>
+        <ul class="navbar-nav ml-auto" (click)="showMenu()">
+          <li class="nav-item" *ngFor="let item of menuItems">
+            <a href="#" class="nav-link" routerLink="{{item.url}}" (click)="selectedMenuItem()" >{{item.name}}</a>
+          </li> 
         </ul>
       </div>
     </div>

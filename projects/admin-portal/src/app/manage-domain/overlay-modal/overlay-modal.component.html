@@ -1,0 +1,34 @@
+<!-- Start: Form -->
+<aside *ngIf="isModalShow" class="form-section bg-white flex-grow-1 d-flex flex-column">
+  <div
+    class="form-heading d-flex justify-content-between align-items-center flex-shrink-0 p-3 bg-light border border-bottom-primary">
+    <h5 class="text-tertiary m-0"> {{ modalHeading }} </h5>
+    <a (click)="addDomainHideForm()">
+      <img src="../../../assets/images/logo/close.png" alt="close" class="cursor-pointer">
+    </a>
+  </div>
+  <div class=" d-flex overflow-auto pt-3 w-100 h-100">
+    <form class="form mx-3 w-100" [formGroup]="domainListForm">
+      <div class="form-group">
+        <label for="domain-name">Domain Name *</label>
+        <input class="form-control form-control-sm w-100" type="text" id="domain-name" formControlName="domainName"
+          (keypress)="avoidFirstBlankSpace($event)" oneTalentRemoveSpace
+          [ngClass]="{'is-invalid':domainValidation.domainName.touched && domainValidation.domainName.invalid}">
+        <div class="invalid-feedback">
+          <div *ngIf="domainValidation.domainName.errors?.required">Domain name is required</div>
+          <div *ngIf="domainValidation.domainName.errors?.maxlength">Allow only thirty character</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="domain-description">Description</label>
+        <textarea class="form-control form-control-sm" id="domain-description" rows="3" formControlName="description"
+          oneTalentRemoveSpace maxlength="200"></textarea>
+      </div>
+    </form>
+  </div>
+  <footer class="form-foot p-3 d-flex align-items-center justify-content-between">
+    <span class="text-danger">* Indicates required field</span>
+    <button type="button" class="btn btn-info px-4" (click)="addDomain()">SAVE</button>
+  </footer>
+</aside>
+<!-- Form End -->

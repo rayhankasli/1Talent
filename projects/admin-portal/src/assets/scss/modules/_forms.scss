@@ -1,1 +1,65 @@
-/* Rules for Forms */
+/*
+Overlay Form In Manage Vacancy
+*/
+
+.form-section {
+    top: 0;
+    right: 0;
+    width: 30%;
+    height:100%;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: -2px 0 8px 2px $primary;
+
+    .title-heading {
+        font-weight: $font-weight-bold;
+    }
+
+    .form {
+        //For input border none
+        .date-picker {
+            border: none;
+            font-weight: $font-weight-bold;
+            background-color: $white;
+        }
+
+        label {
+            color: $primary;
+            font-weight: $font-weight-bold;
+        }
+
+        .form-control {
+            box-shadow: none;
+
+            &:hover {
+                border-color: $primary;
+                box-shadow: none;
+            }
+
+            &:focus {
+                border-color: $primary;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .form-foot {
+        text-align: right;
+        .btn {
+            font-size: 0.725rem;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        width: 40%;
+    }
+
+    @include media-breakpoint-down(md) {
+        width: 70%;
+    }
+
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+    }
+}

@@ -1,5 +1,5 @@
 //List vacancy custom scss
-.section-heading {
+.content-header {
     .btn {
         font-weight: 500;
         font-size: $font-size-sm;
@@ -9,7 +9,7 @@
     }
 }
 
-.table-container table {
+.table {
     border-collapse: separate;
     border-spacing: 0 1em;
     .table-data {

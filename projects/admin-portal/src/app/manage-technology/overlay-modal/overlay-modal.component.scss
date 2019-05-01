@@ -1,0 +1,22 @@
+@import "../../../assets/scss/core/variables";
+#select-domain {
+  font-weight: 600;
+  &:focus {
+    box-shadow: none;
+  }
+}
+::ng-deep {
+  .mat-form-field-appearance-outline {
+    .mat-form-field-outline {
+      color: $gray-500;
+    }
+    .mat-form-field-outline-thick{
+      color: $gray-700;
+    }
+  }
+}
+
+
+.chips {
+  box-shadow: none;
+}

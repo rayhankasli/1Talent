@@ -9,14 +9,14 @@
         .page-sub-title{
             position: absolute;
             top:17px;                       //magic number
-            color: $banner-color;
+            color: $lighter;
             font-weight: $font-weight-bold;
         }
        
         h1{
             margin: 0;
             font-weight: $font-weight-bold;
-            color: $banner-shadow;
+            color: $gray-800;
         }
         .btn-icon{
             box-shadow: none;

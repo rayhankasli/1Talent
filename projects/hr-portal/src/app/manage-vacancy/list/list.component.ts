@@ -3,18 +3,19 @@
  * @created date: 20/03/2019
  * @description: In this component file, the logic of getting all the records is done
  */
+
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { LoaderService } from '../../core/loader/loader.service';
 import { VacancyService } from '../services/vacancy.service';
 import {
-  Country, Designation, Domain, Technology,
-  ToastrErrorMessage, ToastrErrorStatus204, ToastrErrorStatus400, ToastrErrorStatus401,
-  ToastrErrorStatus404, ToastrErrorStatus500, ToastrSuccessMessage, Vacancy,
+  ToastrErrorStatus204, ToastrErrorStatus400, ToastrErrorStatus401, ToastrErrorStatus404,
+  ToastrErrorStatus500, Vacancy
 } from '../vacancy.model';
-import { Validatecharacters, ValidateNumberAndDot, ValidateOnlyNumber } from '../validators/form.validator';
-
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
 /**
  * This is the Component decorator.
  * Component selector, scss adn html files are declared here
@@ -22,210 +23,167 @@ import { Validatecharacters, ValidateNumberAndDot, ValidateOnlyNumber } from '..
 @Component({
   selector: 'one-talent-list',
   styleUrls: ['./list.component.scss'],
-  templateUrl: './list.component.html',
+  templateUrl: './list.component.html'
 })
 
 /**
  * @author: Bhumi Desai
  * @created date: 22/03/2019
- * @description:ListComponent component to display and insert vacancy
+ * @description:ListComponent component to display, insert, update and delete vacancy
  */
 export class ListComponent implements OnInit {
 
   /**
    * all the records will be stored in this variable.
-   * this variable will be used in template to display the records.
+   * this variable will be used to display the list of records.
    */
   public vacancies: Vacancy[] = [];
-
-  /** vacancyForm is the FormGroup */
-  public vacancyForm: FormGroup;
-
-  /** vacancyForm is the FormGroup */
-  public show: boolean = false;
-
-  /** Determines whether form is submitted or not */
-  public isSubmitted: boolean = false;
-
-  /** Domain for the dropdown */
-  public domain: Domain[];
-  /** Technology for the dropdown */
-  public technology: Technology[];
-  /** Designation for the dropdown */
-  public designation: Designation[];
-  /** Country for the dropdown */
-  public country: Country[];
-
-  constructor (private fb: FormBuilder, private vacancyService: VacancyService, private toastr: ToastrService) { }
-
+  /** this variable is used to show the modal or not  */
+  public isShowModal: boolean;
+  /** insertJob Flag Subscription  of list component */
+  public insertJobFlagSub: Subscription;
+  /** vacancies Subscription  of list component */
+  public vacanciesSub: Subscription;
+  /** delete vacancy Subscription  of list component */
+  public deleteSub: Subscription;
+  /** update vacancy Subscription  of list component */
+  public updateSub: Subscription;
+  
+  constructor(
+    private loaderService: LoaderService,
+    private vacancyService: VacancyService,
+    private toastr: ToastrService, public dialog: MatDialog) { }
   /**
    * on init, formcontrols are initialised and getAllVacancies method to display the list is called
    */
-  public ngOnInit (): void {
-    this.getDomain();
-    this.getTechnology();
-    this.getDesignation();
-    this.getCountry();
-    this.vacancyForm = this.fb.group({
-      countryId: ['', Validators.required],
-      designationId: ['', Validators.required],
-      domainId: ['', Validators.required],
-      experience: ['', Validators.compose([Validators.required, ValidateNumberAndDot])],
-      jobDescription: ['', Validators.required],
-      jobName: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30), Validatecharacters])],
-      responsibilities: ['', Validators.required],
-      technologyId: ['', Validators.required],
-      vacancies: ['', Validators.compose([Validators.required, ValidateOnlyNumber])],
-    });
+  public ngOnInit(): void {
+
     this.getAllVacancies();
-  }
-
-  /**
-   * Gets all the domain for displaying the dropdown
-   * @author: Bhumi Desai
-   * @created date: 27/03/2019
-   */
-  public getDomain (): void {
-    this.vacancyService.getDomain().subscribe((response: Domain[]) => {
-      this.domain = response;
-    },                                        (error: HttpErrorResponse) => {
-
-      if (error.status === 404) {
-        this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
-      } else if (error.status === 204) {
-        this.toastr.error(ToastrErrorStatus204.Message, ToastrErrorStatus204.MessageType);
+    this.insertJobFlagSub = this.vacancyService.insertJob$.subscribe((value: boolean) => {
+      if (value) {
+        this.getAllVacancies();
       }
     });
   }
 
-  /**
-   * Gets all the technology for displaying the dropdown
-   * @author: Bhumi Desai
-   * @created date: 27/03/2019
-   */
-  public getTechnology (): void {
-    this.vacancyService.getTechnology().subscribe((response: Technology[]) => {
-      this.technology = response;
-    },
-                                                  (error: HttpErrorResponse) => {
-
-        if (error.status === 404) {
-          this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
-        } else if (error.status === 204) {
-          this.toastr.error(ToastrErrorStatus204.Message, ToastrErrorStatus204.MessageType);
-        }
-      });
-  }
-
-  /**
-   * Gets all the designation for displaying the dropdown
-   * @author: Bhumi Desai
-   * @created date: 27/03/2019
-   */
-  public getDesignation (): void {
-    this.vacancyService.getDesignation().subscribe((response: Designation[]) => {
-      this.designation = response;
-    },                                             (error: HttpErrorResponse) => {
-
-      if (error.status === 404) {
-        this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
-      } else if (error.status === 204) {
-        this.toastr.error(ToastrErrorStatus204.Message, ToastrErrorStatus204.MessageType);
-      }
-    });
-  }
-
-  /**
-   * Gets all the country for displaying the dropdown
-   * @author: Bhumi Desai
-   * @created date: 27/03/2019
-   */
-  public getCountry (): void {
-    this.vacancyService.getCountry().subscribe((response: Country[]) => {
-      this.country = response;
-    },                                         (error: HttpErrorResponse) => {
-
-      if (error.status === 404) {
-        this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
-      } else if (error.status === 204) {
-        this.toastr.error(ToastrErrorStatus204.Message, ToastrErrorStatus204.MessageType);
-      }
-    });
-  }
   /**
    * Gets all the vacancies for displaying the list
    * @author: Bhumi Desai
    * @created date: 22/03/2019
    */
-  public getAllVacancies (): void {
-    this.vacancyService.getAllVacancies().subscribe((response: Vacancy[]) => {
+  public getAllVacancies(): void {
+    this.loaderService.displayLoader(true);
+    this.vacanciesSub = this.vacancyService.getAllVacancies().subscribe((response: Vacancy[]) => {
       this.vacancies = response;
-    },                                              (error: HttpErrorResponse) => {
+      this.loaderService.displayLoader(false);
+    },                                                                  (error: HttpErrorResponse) => {
+      this.errorHandler(error.status);
+    });
+  }
 
-      if (error.status === 404) {
-        this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
-      } else if (error.status === 204) {
-        this.toastr.error(ToastrErrorStatus204.Message, ToastrErrorStatus204.MessageType);
+  /**
+   * Opens vacancy modal
+   * @author: Mayur Patel
+   * @created date: 03/04/2019
+   * @param eventData boolean value to open or close the modal
+   */
+  public openVacancyModal(eventData: boolean): void {
+    this.isShowModal = eventData;
+  }
+
+  /**
+   * Updates vacancy
+   * @author: Bhumi Desai
+   * @created date: 03/04/2019
+   * @param eventUpdateVacancy updated records of the vacancy
+   */
+  public updateVacancy(eventUpdateVacancy: Vacancy): void {
+    this.isShowModal = true;
+    // this.openChangeStatusDialog(eventUpdateVacancy);
+    this.vacancyService.sendData(eventUpdateVacancy);
+  }
+  /**
+   * openDeleteDialog box for delete vacancy
+   * @param vacancyId contain unique id for delete vacancy
+   */
+  public openDeleteDialog(vacancyId: number): void {
+    const dialogRef: MatDialogRef<DeleteDialogComponent> = this.dialog.open(DeleteDialogComponent, {
+      data: { data: 'Are you sure you want to delete?' }
+    });
+    dialogRef.afterClosed().subscribe((result: { [key: string]: string }) => {
+      if (!!result) {
+        if (result.data) {
+          this.deleteSub = this.vacancyService.deleteVacancy(vacancyId).subscribe((response: Vacancy) => {
+            this.getAllVacancies();
+          });
+        }
+      }
+    });
+  }
+  /**
+   * openDeleteDialog box for status change vacancy
+   * @param vacancyId contain unique id for delete vacancy
+   */
+  public openChangeStatusDialog(vacancyDetail: Vacancy): void {
+    const dialogRef: MatDialogRef<DeleteDialogComponent> = this.dialog.open(DeleteDialogComponent, {
+      data: { data: 'Are you sure you want cancel?' }
+    });
+    dialogRef.afterClosed().subscribe((result: { [key: string]: string }) => {
+      if (!!result) {
+        if (result.data) {
+          vacancyDetail.jobStatusId = 2;
+          vacancyDetail.publishDate = null;
+          // this.changeStatusEvent.emit(vacancyDetail);
+          // this.vacancyService.sendData(vacancyDetail);
+          this.updateSub = this.vacancyService.updateVacancies(vacancyDetail, vacancyDetail.jobId).subscribe((response: Vacancy) => {
+            this.getAllVacancies();
+          });
+        }
       }
     });
   }
 
   /**
-   * logic of inserting the records is performed
+   * Deletes vacancy
    * @author: Bhumi Desai
-   * @created date: 22/03/2019
+   * @created date: 03/04/2019
+   * @param eventUpdateVacancy updated records of the vacancy
    */
-  public onSubmit (): void {
-    this.isSubmitted = true;
-    if (this.vacancyForm.invalid) {
-      this.toastr.error(ToastrErrorMessage.Message, ToastrErrorMessage.MessageType);
-      return;
+  public deleteVacancy(deleteId: number): void {
+    this.openDeleteDialog(deleteId);
+  }
+  /**
+   * Deletes vacancy
+   * @author: Mayur Patel
+   * @created date: 10/04/2019
+   * @param vacancyData updated records of the vacancy with status
+   */
+  public changeJobStatus(vacancyData: Vacancy): void {
+    this.openChangeStatusDialog(vacancyData);
+  }
+  /**
+   * Error handler method for error status
+   */
+  public errorHandler(errorCode: number): void {
+    if (errorCode === 404) {
+      this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
+    } else if (errorCode === 204) {
+      this.toastr.error(ToastrErrorStatus204.Message, ToastrErrorStatus204.MessageType);
+    } else if (errorCode === 400) {
+      this.toastr.error(ToastrErrorStatus400.Message, ToastrErrorStatus400.MessageType);
+    } else if (errorCode === 401) {
+      this.toastr.error(ToastrErrorStatus401.Message, ToastrErrorStatus401.MessageType);
+    } else if (errorCode === 500) {
+      this.toastr.error(ToastrErrorStatus500.Message, ToastrErrorStatus500.MessageType);
     }
-    this.vacancyService.insertVacancies(this.vacancyForm.value).subscribe((response: Vacancy) => {
-      this.show = false;
-      this.toastr.success(ToastrSuccessMessage.Message, ToastrSuccessMessage.MessageType);
-      this.getAllVacancies();
-      this.clearAll();
-    },                                                                    (error: HttpErrorResponse) => {
-
-      if (error.status === 404) {
-        this.toastr.error(ToastrErrorStatus404.Message, ToastrErrorStatus404.MessageType);
-      } else if (error.status === 400) {
-        this.toastr.error(ToastrErrorStatus400.Message, ToastrErrorStatus400.MessageType);
-      } else if (error.status === 401) {
-        this.toastr.error(ToastrErrorStatus401.Message, ToastrErrorStatus401.MessageType);
-      } else if (error.status === 500) {
-        this.toastr.error(ToastrErrorStatus500.Message, ToastrErrorStatus500.MessageType);
-      }
-    });
+    this.loaderService.displayLoader(false);
   }
 
-  /**
-   * Opens the modal form
-   * @author: Bhumi Desai
-   * @created date: 25/03/2019
-   */
-  public openModalForm (): void {
-    this.show = true;
-  }
-
-  /**
-   * Closes the modal form
-   * @author: Bhumi Desai
-   * @created date: 25/03/2019
-   */
-  public closeModalForm (): void {
-    this.clearAll();
-    this.show = false;
-  }
-
-  /**
-   * Clears all the form fields
-   * @author: Bhumi Desai
-   * @created date: 25/03/2019
-   */
-  public clearAll (): void {
-    this.vacancyForm.reset();
-  }
+  // public ngOnDestroy(): void {
+  //   this.insertJobFlagSub.unsubscribe();
+  //   this.vacanciesSub.unsubscribe();
+  //   // this.deleteSub.unsubscribe();
+  //   // this.updateSub.unsubscribe();
+  // }
 
 }

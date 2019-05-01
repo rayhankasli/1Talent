@@ -4,108 +4,137 @@
  * @description: this component is use for the display vacancy Cards and check the available vacancies
  * Created Date : 25-03-2019
  */
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { fadeInRightOnEnterAnimation, fadeOutLeftOnLeaveAnimation } from 'angular-animations';
-import { ToastrService } from 'ngx-toastr';
-import { VacancyService } from '../../../shared/services/vacancy.service';
-import { Vacancy, VacancyModel } from './vacancy.model';
+import { Component,  Input, OnChanges } from '@angular/core';
+import { VacancyAnimation } from './vacancyAnimation';
+import { Vacancy } from '../model/current-vacancies.model';
+// -------------
+type Orientation = ('prev' | 'next' | 'none');
 /**
  * This is the Component decorator.
  * Component selector, scss, animation and html files are declared here
  */
 @Component({
-  animations: [
-    fadeInRightOnEnterAnimation({ anchor: 'fadeInRight' }),
-    fadeOutLeftOnLeaveAnimation({ anchor: 'fadeOutLeft' }),
-  ],
+  animations: [VacancyAnimation.cardAnimation],
   selector: 'one-talent-vacancy-card',
   styleUrls: ['./vacancy-card.component.scss'],
   templateUrl: './vacancy-card.component.html',
 })
-// Display vacancy Cards
-export class VacancyCardComponent implements OnInit {
-  // LoadedCounter: it will count the array length
-  public loadedCounter: number = 0;
-  // PrevLoaddedCounter: previous vacancy count
-  public prevLoaddedCounter: number = 0;
-  // IsNextAvailable: check the next click Button is available or not
-  public isNextAvailable: boolean = true;
-  // IsPrevAvailable: check the previous click Button is available or not
-  public isPrevAvailable: boolean = false;
-  // Diplay vacancies of vacancy card component is use to display the dom side all vacancies
+/**  Display vacancy Cards */
+export class VacancyCardComponent implements OnChanges {
+  
+  /** Orientation  of vacancy card component */
+  public orientation: Orientation;
+  /** pervCounter: it will count the array previous length */
+  public prevCounter: number;
+  /** nextCounter: it will count the array next length  */
+  public nextCounter: number;
+  /** IsNextAvailable: check the next click Button is available or not */
+  public isNextAvailable: boolean;
+  /** IsPrevAvailable: check the previous click Button is available or not */
+  public isPrevAvailable: boolean;
+  /**  Diplay vacancies of vacancy card component is use to display the dom side all vacancies */
   public diplayVacancies: Vacancy[];
-  // Vacancies: Array of the Vacancies
-  private vacancies: Vacancy[];
+  /** Counter the vacancies length */
+  public counter: number;
+  /** Countercheck for length of vacancy card component */
+  public counterCheck:boolean;
+  /** vacancyData is type of vacancy */
+  private vacancyData: Vacancy[];
   /**
    * Creates an instance of vacancy card component.
    * @param _service: refernce of VacancyService and is use to call all the service method
+   * @param _toastr : its is use to some problem to API side this tostr will display the msg
+   * @param _loaderService : its is use to fatch the data to server this time loader will display
    */
-  constructor (private _service: VacancyService, private _toastr: ToastrService) { }
-  /**
-   * @author : Gaurang Valia
-   * Created Date : 25-03-2019
-   */
-  //  Oninit call the displayVacancy()
-  public ngOnInit (): void {
-    this.displayVacancy();
+  constructor() {
+    this.orientation = 'none';
+    this.prevCounter = 0;
+    this.nextCounter = 3;
+    this.isNextAvailable = false;
+    this.isPrevAvailable = true;
+    this.counterCheck = false;
+  }
+   /** Every change of this component,and Current-vacancies component OnChaneg() method is called */
+   ngOnChanges(): void {
+    this.orientation = 'none';
+    this.prevCounter = 0;
+    this.nextCounter = 3;
+    this.isNextAvailable = false;
+    this.isPrevAvailable = true;
+    if(this.vacanciesDataList){
+      this.displayVacancy(); 
+    }
+  }
+  /** Gets vacancies data list return */
+  get vacanciesDataList(): Vacancy[] {
+    return this.vacancyData;
+  }
+  /** Sets The data of vacancy list */
+  @Input()
+  set vacanciesDataList(vacancyData: Vacancy[]) {
+    this.vacancyData = vacancyData;
   }
   /**
+   * DisplayVacancy() is subscribe the getVacancy() and fetch the response also is call the nextVacancyload() method
    * @author : Gaurang Valia
    * Created Date : 25-03-2019
    */
-  // DisplayVacancy() is subscribe the getVacancy() and fetch the response also is call the nextVacancyload() method
-  public displayVacancy (): void {
-    this._service.getVacancy().subscribe((response: Vacancy[]) => {
-      this.vacancies = response;
+  public displayVacancy(): void {
+      this.counter = this.vacanciesDataList.length;
+      if(this.counter === 0){
+        this.counterCheck= true;        
+      }else{
+        this.counterCheck= false;
+      }
       this.nextVacancyLoad();
-
-    },
-                                         (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          this._toastr.error(VacancyModel.InvalidValue, VacancyModel.ErrorMessage);
-        }
-      });
+      this.isPrevAvailable = true;
   }
   /**
+   * nextVacancyLoad() is display the next 3 vacancy of Vacancies
    * @author : Gaurang Valia
    * Created Date : 26-03-2019
    */
-  // nextVacancyLoad() is display the next 3 vacancy of Vacancies
-  public nextVacancyLoad (): void {
-    if (this.isNextAvailable) {
-      this.isPrevAvailable = true;
-      this.prevLoaddedCounter = this.loadedCounter;
-      this.loadedCounter += 3;
-      if (this.loadedCounter > this.vacancies.length) {
-        this.loadedCounter = this.vacancies.length;
-        this.isNextAvailable = false;
-      }
+  public nextVacancyLoad(): void {
+    if (!this.isNextAvailable) {
+      this.orientation = 'next';
       this.diplayVacancies = [];
-      for (let index: number = this.prevLoaddedCounter; index < this.loadedCounter; index++) {
-        const element: Vacancy = this.vacancies[index];
-        this.diplayVacancies.push(element);
+      this.isPrevAvailable = false;
+      this.diplayVacancies = this.vacanciesDataList.slice(this.prevCounter, this.nextCounter);
+      if (this.counter <= 3) {
+        this.isNextAvailable = true;
+      }
+      if (this.nextCounter < this.vacanciesDataList.length) {
+        this.prevCounter += 3;
+        this.nextCounter += 3;
+        this.counter -= 3;
       }
     }
   }
   /**
+   * prevVacancyLoad() is display the previous 3 vacancy of Vacancies
    * @author : Gaurang Valia
    * Created Date : 26-03-2019
    */
-  // prevVacancyLoad() is display the previous 3 vacancy of Vacancies
-  public prevVacancyLoad (): void {
-    if (this.isPrevAvailable) {
-      this.isNextAvailable = true;
-      this.prevLoaddedCounter = this.loadedCounter;
-      this.loadedCounter -= 3;
-      if (this.loadedCounter < 0) {
-        this.loadedCounter = 0;
-        this.isPrevAvailable = false;
+  public prevVacancyLoad(): void {
+    //let asd: boolean = false; asd = this.isNextAvailable ? true : false; TODO list
+    if (!this.isPrevAvailable) {
+      this.orientation = 'prev';
+      this.isNextAvailable = false;
+      if (this.prevCounter > 0) {
+        this.diplayVacancies = [];
+        this.prevCounter -= 3;
+        this.nextCounter -= 3;
+
+        this.counter += 3;
+        this.diplayVacancies = this.vacanciesDataList.slice(this.prevCounter, this.nextCounter);
+        // TODO
+        // if(asd) {
+        //     this.prevCounter = 3;
+        //     this.nextCounter = 6;
+        //   }
       }
-      this.diplayVacancies = [];
-      for (let index: number = this.loadedCounter; index < this.prevLoaddedCounter; index++) {
-        const element: Vacancy = this.vacancies[index];
-        this.diplayVacancies.push(element);
+      if (this.prevCounter < 3) {
+        this.isPrevAvailable = true;
       }
     }
   }

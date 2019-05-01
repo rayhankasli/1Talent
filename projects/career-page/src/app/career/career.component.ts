@@ -16,4 +16,6 @@ import { Component } from '@angular/core';
 })
 // careerComponent
 export class CareerComponent {
+  public jobTitle: string = "Imagine more at 1Rivet";
+  public jobDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, quidem? Beatae dolore quae ducimus tempore quas rerum voluptates delectus? Ipsum tempore illo quia eos commodi iste eligendi omnis dolorum aperiam";
 }

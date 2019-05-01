@@ -15,18 +15,18 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'list',
+    redirectTo: 'list'
   },
   {
     path: 'list',
-    component: ListComponent,
-  },
+    component: ListComponent
+  }
 ];
 /**
- * NgMOdule - This module use for set the routes
+ * NgModule - This module use for set the routes
  */
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)]
 })
 export class ManageDomainRoutingModule { }

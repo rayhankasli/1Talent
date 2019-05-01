@@ -1,0 +1,57 @@
+<!-- Table heading -->
+<div class="pb-2 px-2">
+    <table class="table data-table table-borderless">
+        <thead class="w-100 px-2 pt-2">
+            <tr class="text-secondary-text-color ">
+                <th>SR.NO</th>
+                <th>JOB TITLE</th>
+                <th>NO. OF VACANCY</th>
+                <th>EXPERIENCE</th>
+                <th>DOMAIN NAME</th>
+                <th>TECHNOLOGY</th>
+                <th>STATUS</th>
+                <th class="action-header">ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody class="px-2 overflow-auto pb-2">
+            <tr class="data-table-row" *ngFor="let vacancy of contentData; let i=index; trackBy: vacancy?.jobId">
+                <td>{{ i+1 }}</td>
+                <td>{{ vacancy.jobName }}</td>
+                <td>{{ vacancy.vacancies }}</td>
+                <td>{{ vacancy.experience }}</td>
+                <td>{{ vacancy.domainName }}</td>
+                <td>{{ vacancy.technologyName }}</td>
+                <td>{{ vacancy.jobStatus }}</td>
+                <td>
+                    <button *ngIf="(vacancy.jobStatus === 'Scheduled' || vacancy.jobStatus === 'Saved')"
+                        (click)="updateClick(vacancy)">
+                        <img src="../../../../assets/images/logo/actions_edit.png" alt="Edit-icon"
+                            class="operation-icon" title="edit">
+                    </button>
+                    <button *ngIf="(vacancy.jobStatus === 'Scheduled' || vacancy.jobStatus === 'Saved')">
+                        <img src="../../../../assets/images/logo/actions_duplicate.png" alt="copy-icon"
+                            class="operation-icon" title="copy">
+                    </button>
+                    <button *ngIf="(vacancy.jobStatus === 'Saved')" (click)="deleteClick(vacancy.jobId)">
+                        <img src="../../../../assets/images/logo/actions_delete.png" alt="delete-icon"
+                            class="operation-icon" title="delete">
+                    </button>
+                    <button *ngIf="(vacancy.jobStatus === 'Published')" (click)="changeStatusClick(vacancy)">
+                        <img src="../../../../assets/images/logo/actions_close.png" alt="delete-icon"
+                            class="operation-icon text-center" title="cancel">
+                    </button>
+                    <button *ngIf="(vacancy.jobStatus === 'Scheduled')" (click)="changeStatusClick(vacancy)">
+                        <img src="../../../../assets/images/logo/actions_cancel.png" alt="delete-icon"
+                            class="operation-icon" title="cancel">
+                    </button>
+                </td>
+            </tr>
+            <!-- <ng-container *ngIf="contentData?.length === 0">No Records Found</ng-container> -->
+        </tbody>
+    </table>
+    <div *ngIf="contentData?.length === 0" class="h-100 w-100 d-flex align-items-center justify-content-center">
+        <h5>No records found.!!</h5>
+    </div>
+</div>
+
+<!-- End : Table -->

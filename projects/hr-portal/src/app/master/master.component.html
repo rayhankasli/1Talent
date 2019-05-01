@@ -1,0 +1,37 @@
+<main class="d-flex h-100 w-100">
+  <input type="checkbox" id="sidebarToggle" class="d-none">
+  <aside class="bg-darker shadow h-100" id="sidebar">
+    <one-talent-sidebar></one-talent-sidebar>
+  </aside>
+  <section class="flex-grow-1 bg-dark overflow-hidden">
+    <div class="d-flex flex-column w-100 h-100">
+      <one-talent-topbar></one-talent-topbar>
+      <div class="px-4 pb-4 pt-2 flex-grow-1 h-100 w-100 overflow-hidden">
+        <section class="overflow-hidden bg-white rounded w-100 h-100 position-relative">
+          <!-- System loader -->
+          <div class="overlay" [hidden]="!loaderStatus">
+            <div class="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <!-- <div class="h-100 w-100 d-flex align-items-center justify-content-center">
+            <h5>No records found.!!</h5>
+          </div> -->
+          <!-- System loader -->
+          <router-outlet></router-outlet>
+        </section>
+      </div>
+
+    </div>
+
+
+    <!-- End System loader -->
+  </section>
+</main>

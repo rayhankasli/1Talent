@@ -1,0 +1,82 @@
+<!--
+********
+MANAGE LEAVES 
+*********
+-->
+<div class="pb-2 px-2">
+    <!-- Start : Data-Table -->
+    <table class="data-table table table-borderless m-0">
+        <thead>
+            <tr class="text-secondary-text-color ">
+                <th>SR.NO</th>
+                <th>EMPLOYEE NAME</th>
+                <th>REQUEST DATE</th>
+                <th>FROM DATE</th>
+                <th>TO DATE</th>
+                <th>LEAVE TYPE</th>
+                <th>COUNT</th>
+                <th>REASON</th>
+                <th class="status">STATUS</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <!-- Start : Table Body badge-success badge-danger -->
+        <tbody>
+            <tr class="data-table-row" *ngFor="let leave of contentData; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{leave.firstName}} {{leave.lastName}}</td>
+                    <td>{{leave.createdDate | date:'MM/dd/yyyy'}}</td>
+                    <td>{{leave.fromDate | date:'MM/dd/yyyy'}}</td>
+                    <td>{{leave.toDate | date:'MM/dd/yyyy'}}</td>
+                    <td>{{leave.type}}</td>
+                    <td>{{leave.countDays}} d</td>
+                    <td class="description" title="{{leave.reason}}">
+                        {{leave.reason}}
+                    </td>
+                    <td>
+                        <button class="badge badge-pill py-2 text-white" [ngClass]="{
+                            'badge-tertiary':leave.status === 'Cancelled',
+                            'badge-success':leave.status === 'Approved',
+                            'badge-info':leave.status === 'Cancellation Request',
+                            'badge-danger':leave.status === 'Rejected',
+                            'badge-warning':leave.status === 'Pending'}">{{ leave.status | uppercase }}</button>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="leave.status === 'Pending'">
+                            <button title="approve" (click)="approve(leave.leaveId)"> <img src="../../../../assets/images/logo/approve.png"
+                                alt="approve"></button>
+                        </ng-container>
+                        <ng-container *ngIf="(leave.status === 'Pending' || leave.status === 'Approved')">
+                            <button title="close" (click)="deleteClick(leave.leaveId)"> 
+                                    <img src="../../../../assets/images/logo/actions_close.png" alt="cancel">
+                                </button>
+                        </ng-container>
+                        <ng-container *ngIf = "leave.status === 'Cancellation Request'">
+                            <button title="cancel" (click)="approveCancelRequest(leave.leaveId)"> <img src="../../../../assets/images/logo/approve.png"
+                                alt="cancel"></button>
+                            <button title="close" (click)="rejectCancelRequest(leave.leaveId)"> 
+                                    <img src="../../../../assets/images/logo/actions_close.png" alt="cancel">
+                                </button>
+                        </ng-container>
+                        
+                        <!-- <ng-container>
+
+                        </ng-container> -->
+                        <!-- <button title="approve" *ngIf="leave.status === 'Pending'" (click)="approve(leave.leaveId)"> <img src="../../../../assets/images/logo/approve.png"
+                                alt="approve" ></button>
+                        <button title="close" *ngIf="(leave.status === 'Pending' || leave.status === 'Approved')" (click)="deleteClick(leave.leaveId)"> 
+                            <img src="../../../../assets/images/logo/actions_close.png" alt="cancel">
+                        </button> -->
+                    </td>
+            </tr>
+                    
+            <!-- <tr *ngIf="contentData?.length === 0">No Records Found</tr> -->
+        </tbody>
+        <!-- End : Table Body -->
+    </table>
+    <div *ngIf="contentData?.length === 0" class="h-100 w-100 d-flex align-items-center justify-content-center">
+        <h5>No records found.!!</h5>
+    </div>
+    <!-- End : Data-Table -->
+</div>
+<!-- End : Table -->

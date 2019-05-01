@@ -1,72 +1,99 @@
-#topbar {
-    @import "../modules/navbar";
-}
-
 #main {
     position: relative;
     line-height: 1.7;
 
-    .h2 {
-        padding-bottom: .5rem;
+  .h2 {
+    padding-bottom: .5rem;
+  }
+
+  .vacancies-details {
+
+
+    .card {
+      border: 0;
+
+      @include media-breakpoint-down(md) {
+        border: 0 !important;
+        margin: 0;
+      }
     }
+
+    p {
+      color: $secondary;
+      font-weight: 500;
+    }
+  }
 }
 
 #introduction {
-    min-height: 290px;
-    overflow: hidden;
-    background-image: url('assets/img/background/introduction.png');
-    background-size: cover;
-    background-attachment: fixed;
+  min-height: 290px;
+  overflow: hidden;
+  background-image: url('assets/img/background/introduction.png');
+  background-size: cover;
+  background-attachment: fixed;
 
-    @include media-breakpoint-down(sm) {
-        min-height: 390px;
-    }
+  @include media-breakpoint-down(sm) {
+    min-height: 390px;
+  }
 }
 
 #culture {
-    .album {
-        .card-img-overlay {
-            background-color: $overlay-background;
-            overflow: hidden;
-            transition: 500ms ease-in-out;
-            transform: translateY(100%);
-            opacity: 0;
-            padding: 1rem;
+  .album {
+    .card-img-overlay {
+      background-color: $overlay-background;
+      overflow: hidden;
+      transition: 500ms ease-in-out;
+      transform: translateY(100%);
+      opacity: 0;
+      padding: 1rem;
+      color: $white;
 
-            @include media-breakpoint-down(xs) {
-                padding: .25rem;
-            }
-        }
-
-        .fa-play-circle {
-            font-size: 5rem;
-        }
-
-        .figure {
-            overflow: hidden;
-
-            &:hover .card-img-overlay {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+      @include media-breakpoint-down(xs) {
+        padding: .25rem;
+      }
     }
+
+    .fa-play-circle {
+      font-size: 5rem;
+    }
+
+    .figure {
+      overflow: hidden;
+
+      &:hover .card-img-overlay {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
 }
 
 #vacancies {
-    .form-row {
-        margin: 0;
-
-        >.col,
-        >[class*="col-"] {
-            padding-right: 5px;
-            padding-left: 5px;
-        }
-
-        .form-control, .btn{
-            font-size: .8rem;
-            padding: .5rem;
-        }
-        
+  .card {
+    .card-body {
+      padding: 1rem;
     }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .form-row {
+    margin: 0;
+
+    >.col,
+    >[class*="col-"] {
+      padding-right: 5px;
+      padding-left: 0;
+    }
+
+    .form-control,
+    .btn {
+      font-size: .8rem;
+      padding: .25rem;
+      height: 100%;
+    }
+
+  }
 }

@@ -1,16 +1,37 @@
-/* Rules for Table layout */
-
 .data-table {
-    /* Table heading */
-    &-header {}
-    /* Table body */
-    &-body {}
-    /* Table Row */
-    &-row {
-        /* Data table row Item */
-        &-item {}
-        &.active {}
+    border-collapse: separate;
+    border-spacing: 0 1em;
+
+    th {
+        white-space: nowrap;
     }
-    /* Table Footer */
-    &-footer {}
+    
+    .data-table-row {
+        background: $table-row-color;
+        cursor: pointer;
+
+        td {
+            white-space: nowrap;
+            color: $primary;
+            font-weight: $font-weight-bold;
+            padding-top: 1.25em;
+            padding-bottom: 1.25em;
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+        .description {
+            @include truncate(200px);
+        }
+
+        
+    }
 }
+

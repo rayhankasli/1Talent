@@ -1,0 +1,7 @@
+<div class="content-wrapper d-flex flex-column h-100 w-100 overflow-hidden">
+        <one-talent-header (isModalShow)="addTechnologyFormShow($event)"></one-talent-header>
+        <div class="overflow-auto w-100 h-100">
+            <one-talent-content [contentData]="technologyList" (updateEvent)="editTechnologyData($event)" (deleteEvent)="openDeleteDialog($event)"></one-talent-content>
+            <one-talent-overlay-modal *ngIf="isFormShow" (isModalShow)="addTechnologyFormShow($event)"></one-talent-overlay-modal>
+        </div>
+    </div>

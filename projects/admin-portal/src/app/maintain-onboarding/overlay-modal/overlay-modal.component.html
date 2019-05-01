@@ -1,0 +1,54 @@
+<!-- Start: Form -->
+<aside *ngIf="isModalShow" class="form-section bg-white flex-grow-1 d-flex flex-column">
+  <!-- Start: Form-Head -->
+  <div class="d-flex justify-content-between align-items-center p-3 bg-light border border-bottom-primary">
+    <h5 class="text-tertiary m-0"> {{ modalHeading }} </h5>
+    <a (click)="addOnboardingHideForm()">
+      <img src="../../../assets/images/logo/close.png" alt="close" class="cursor-pointer">
+    </a>
+  </div>
+  <!-- End: Form-Head -->
+  <!-- Start: Form-Content -->
+  <div class="d-flex overflow-auto pt-3 w-100 h-100">
+    <form class="form px-3 w-100" [formGroup]="onboardingForm">
+      <div class="form-group">
+        <label for="Domain">Domain Name</label>
+        <select class="form-control form-control-sm" id="Domain" formControlName="domainId">
+          <option *ngFor="let domain of domainList; trackBy: domain?.domainId" [ngValue]="domain.domainId">
+            {{ domain.domainName }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="Owner">Owner Name</label>
+        <select class="form-control form-control-sm" id="Owner" formControlName="ownerId">
+          <option *ngFor="let owner of ownerList; trackBy: owner?.ownerId" [ngValue]="owner.ownerId">
+            {{ owner.ownerName }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="actvity-name">Activity Name *</label>
+        <input class="form-control form-control-sm w-100" type="text" id="activity-name" formControlName="activityName"
+          (keypress)="avoidFirstBlankSpace($event)" oneTalentRemoveSpace
+          [ngClass]="{'is-invalid':validationForm.activityName.touched && validationForm.activityName.invalid}">
+        <div class="invalid-feedback">
+          <div *ngIf="validationForm.activityName.errors?.required">Activity name is required</div>
+          <div *ngIf="validationForm.activityName.errors?.maxlength">Allow only fifty character</div>
+          <div *ngIf="validationForm.activityName.errors?.invalidcharacters">Do Not Allow</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="activity-description">Activity Description</label>
+        <textarea class="form-control form-control-sm" id="activity-description" rows="3" formControlName="description"
+          oneTalentRemoveSpace maxlength="200"></textarea>
+      </div>
+    </form>
+  </div>
+  <footer class="form-foot p-3 d-flex align-items-center justify-content-between">
+    <span class="text-danger">* Indicates required field</span>
+    <button type="button" class="btn btn-info px-4" (click)="addActivity()">SAVE</button>
+  </footer>
+  <!-- End: Form-Content -->
+</aside>
+<!-- Form End -->

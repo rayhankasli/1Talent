@@ -1,5 +1,5 @@
 //List vacancy custom scss
-.section-heading {
+.content-header {
     .btn {
         font-weight: 500;
         font-size: $font-size-sm;
@@ -9,7 +9,7 @@
     }
 }
 
-.table-container table {
+.table {
     border-collapse: separate;
     border-spacing: 0 1em;
     .table-data {
@@ -50,7 +50,7 @@
     right: 0;
     width: 30%;
     overflow: hidden;
-    border-left: 2px solid $primary;
+  
     .form {
         width: 95%;
         margin: 0 auto;
@@ -85,13 +85,31 @@
                 box-shadow: none;
             }
         }
+        #designation {
+            &:focus {
+                border-color: $primary;
+                box-shadow: none;
+            }
+        }
+        #technology {
+            &:focus {
+                border-color: $primary;
+                box-shadow: none;
+            }
+        }
+        #country {
+            &:focus {
+                border-color: $primary;
+                box-shadow: none;
+            }
+        }
     }
 }
 
 .form-foot {
     text-align: right;
     .btn-info {
-        font-size: 0.625rem;
+        font-size: 0.725rem;
         font-weight: $font-weight-bold;
     }
 }

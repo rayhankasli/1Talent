@@ -1,31 +1,90 @@
-<!-- Start : Sidebar -->
-<nav class="nav-sidebar ">
-  <!-- Header sidebar -->
+<!-- *****
+  Start : Sidebar 
+****** -->
+<!-- Header sidebar -->
+<div class="h-100  d-none d-md-flex flex-column">
   <header class="header-sidebar d-flex justify-content-center align-items-center">
-    <a href="#" class="brand-logo"><img src="../../../../assets/images/logo/logo.png" alt="Brand-Logo"></a>
+    <img src="../../../../assets/images/logo/logo.png" alt="Brand-Logo">
   </header>
   <!-- Start : Sidebar-Content -->
-  <ul class="navbar-nav mt-4">
-    <li class="nav-item active dashboard">
-      <a href="#" class="nav-link">
-        <span class="navbar-icon dashboard-icon"></span>
-      </a>
-      <ul class="dashboard-submenu">
-        <li class="submenu-item p-2" routerLink="/domain/list">Domains</li>
-        <li class="submenu-item p-2" routerLink="/designation/list">Designations</li>
+  <nav class="flex-grow-1 nav-container ">
+    <ul class="navbar-nav h-100 pt-4">
+      <li class="nav-item active dashboard">
+        <a class="nav-link">
+          <span class="navbar-icon dashboard-icon"></span>
+        </a>
+        <ul class="submenu">
+          <li><a routerLink="/domain/" class="nav-link">Domains</a></li>
+          <li><a routerLink="/designation/" class="nav-link">Designations</a></li>
+          <li><a routerLink="/technology/" class="nav-link">Technology</a></li>
+          <li><a routerLink="/onboarding/" class="nav-link">Onboarding List</a></li>
+          <li><a routerLink="/exit-checklist/" class="nav-link">Exit Checklist</a></li>
+          <li><a routerLink="/conference-assets/" class="nav-link"> Conference Assets </a></li>
+        </ul>
+      </li>
+      <li class="nav-item help">
+        <a href="#" class="nav-link">
+          <span class="navbar-icon help-icon"></span>
+        </a>
+      </li>
+      <li class="nav-item settings">
+        <a href="#" class="nav-link">
+          <span class="navbar-icon settings-icon"></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<!-- End : Sidebar-Content -->
+
+
+<!--****************
+    Mobile screen sidebar Design 
+    *******************-->
+
+<div class=" container mobile-panel d-flex flex-column d-md-none p-5 text-light h-100">
+  <label class="ml-auto" for="sidebarToggle">
+    <img src="../../../../assets/images/logo/close.png" alt="close">
+  </label>
+  <div class="dropdown text-center">
+    <img src="../../../../assets/images/users/avatar.png" class="ml-3 mr-2 rounded-circle user" alt="User-img">
+    <h3 class="py-2">{{ fullName }}</h3>
+    <h6 class="pb-2 text-lowercase"> johndoe@1rivet.in</h6>
+    <button class="btn btn-primary px-4">Sign-out</button>
+  </div>
+  <hr class="bg-primary my-4 w-100">
+  <!-- SideMenu -mob -->
+  <ul class="accordion text-white p-0 m-0" id="side-accordion">
+    <li data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <div class="d-flex">
+        <img src="../../../../assets/images/logo/dashboard_hover.png" alt="dashboard-img" class="sidebar-logo">
+        <span>Dashboard</span>
+      </div>
+      <ul>
+        <li id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#side-accordion">
+          Domains
+        </li>
+        <li id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#side-accordion">
+          Designations
+        </li>
+        <li id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#side-accordion">
+          Technology
+        </li>
+        <li id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#side-accordion">
+          Onboarding List
+        </li>
       </ul>
     </li>
-    <li class="nav-item help">
-      <a href="#" class="nav-link">
-        <span class="navbar-icon help-icon"></span>
-      </a>
+    <li>
+      <img src="../../../../assets/images/logo/settings_hover.png" alt="dashboard-img" class="sidebar-logo">
+      <span>Settings</span>
     </li>
-    <li class="nav-item settings">
-      <a href="#" class="nav-link">
-        <span class="navbar-icon settings-icon"></span>
-      </a>
+    <li>
+      <img src="../../../../assets/images/logo/help_hover.png" alt="dashboard-img" class="sidebar-logo">
+      <span>Help</span>
     </li>
   </ul>
-  <!-- End : Sidebar-Content -->
-</nav>
+</div>
+<!-- Mobile screen sidebar Design :End-->
+
 <!-- End : Sidebar -->

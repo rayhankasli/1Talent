@@ -1,0 +1,30 @@
+<main class="d-flex h-100 overflow-hidden">
+  <input type="checkbox" id="sidebarToggle" class="d-none">
+  <aside class="bg-darker shadow h-100" id="sidebar">
+    <one-talent-sidebar></one-talent-sidebar>
+  </aside>
+  <section class="flex-grow-1 bg-dark overflow-hidden">
+    <div class="d-flex flex-column h-100">
+      <one-talent-topbar></one-talent-topbar>
+      <div class="px-4 pb-4 pt-2 flex-grow-1 overflow-hidden">
+        <section class="w-100 h-100 bg-white rounded overflow-hidden position-relative">
+            <!-- Start : Loader -->
+        <div class="overlay" [hidden]="!loaderStatus">
+            <div class="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <!-- End : Loader -->
+          <router-outlet></router-outlet>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

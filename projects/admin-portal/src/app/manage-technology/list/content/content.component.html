@@ -1,0 +1,53 @@
+<!-- Start : Table -->
+<div class="pb-2 px-2 w-100">
+  <table class="table table-borderless data-table">
+    <!-- Table heading -->
+    <tr class="text-secondary-text-color ">
+      <th class="s-no py-0">NO.</th>
+      <th class="domain-name py-0">DOMAIN</th>
+      <th class="technology-name py-0">TECHNOLOGY</th>
+      <th class="description py-0">DESCRIPTION</th>
+      <th class="description py-0">KEY SKILLS</th>
+      <th class="actions text-center py-0">ACTIONS</th>
+    </tr>
+    <!-- Start : Table Body -->
+    <tbody>
+      <tr class="data-table-row" *ngFor="let technology of contentData; let i=index; trackBy: technology?.technologyId">
+        <td class="s-no"> {{ i + 1 }} </td>
+        <td class="domain-name">{{ technology.domainName }}</td>
+        <td class="technology-name">
+          <div *ngIf="!technology.technologyName" class="text-center">
+            -
+          </div>
+          <div *ngIf="technology.technologyName">
+            {{ technology.technologyName }}
+          </div>
+        </td>
+        <td title="{{ technology.description }}">
+          <div *ngIf="!technology.description" class="text-center w-100">
+            -
+          </div>
+          <div *ngIf="technology.description" class="description w-100">
+            {{ technology.description }}
+          </div>
+        </td>
+        <td>
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let skill of technology.skills" class="badge badge-pill badge-darker mr-1 mb-1">
+              {{ skill.skill }}
+            </div>
+          </div>
+        </td>
+        <td class="actions text-center">
+          <button title="Edit" (click)="editTechnology(technology)">
+            <img src="../../../assets/images/logo/actions_edit.png" alt="Edit-icon" class="operation-icon">
+          </button>
+          <button title="Delete" (click)="deleteTechnology(technology.technologyId)">
+            <img src="../../../assets/images/logo/actions_delete.png" alt="delete-icon" class="operation-icon ">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- End : Table -->

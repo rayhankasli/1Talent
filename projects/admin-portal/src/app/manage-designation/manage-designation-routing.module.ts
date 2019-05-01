@@ -11,18 +11,18 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'list',
+    redirectTo: 'list'
   },
   {
     path: 'list',
-    component: ListComponent,
-  },
+    component: ListComponent
+  }
 ];
 /**
  * This ManageDesignationRoutingModule class is use to set routes of manage-designation module
  */
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)]
 })
 export class ManageDesignationRoutingModule { }

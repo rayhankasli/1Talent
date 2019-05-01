@@ -8,16 +8,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDialogModule } from '../material-dialog/material-dialog.module';
 import { DeleteDailogComponent } from './delete-dailog/delete-dailog.component';
-
+import { RemoveSpaceDirective } from './directives/remove-space.directive';
 /**
  * NgModule - This module is use to declare all the feature.
  */
 @NgModule({
   declarations: [
     DeleteDailogComponent,
+    RemoveSpaceDirective
   ],
   entryComponents: [
-    DeleteDailogComponent,
+    DeleteDailogComponent
   ],
   exports: [
     MaterialDialogModule,
@@ -25,13 +26,13 @@ import { DeleteDailogComponent } from './delete-dailog/delete-dailog.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RemoveSpaceDirective
   ],
   imports: [
     MaterialDialogModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-  ],
-
+    ReactiveFormsModule
+  ]
 })
 export class SharedModule { }

@@ -3,7 +3,7 @@
  * @class : BannerComponent
  * Created Date : 20-03-2019
  */
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 /**
  * This is the Component decorator.
  * Component selector, scss and html files are declared here
@@ -15,4 +15,8 @@ import { Component } from '@angular/core';
 })
 // display the banner in hearder
 export class BannerComponent {
+  /** Change the every time this banner Title component */
+  @Input() public bannerTitle: string ="Imagine more at 1Rivet";
+  // public bannerTitle: string = 'Imagine more at 1Rivet';
+  @Input() public bannerDescription: string = "hiijidgfdihg";
 }

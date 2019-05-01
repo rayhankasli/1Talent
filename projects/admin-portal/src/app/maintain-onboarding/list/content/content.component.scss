@@ -1,0 +1,19 @@
+@import "../../../../assets/scss/core/functions";
+@import "../../../../assets/scss/core/mixins";
+@import "../../../../assets/scss/core/placeholder";
+
+.activity-name {
+  @include to-percentage(30);
+}
+
+.description {
+  @include to-percentage(40);
+}
+
+.domain-name {
+  @include to-percentage(15);
+}
+
+.owner-name {
+  @include to-percentage(15);
+}

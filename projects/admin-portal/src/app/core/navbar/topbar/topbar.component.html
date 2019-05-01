@@ -1,28 +1,36 @@
 <!-- Start : Topbar -->
-<header id="topbar">
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark p-0 px-4 justify-content-between align-items-center ">
-    <!-- Page-Title -->
-    <a class="header-wrap">
-      <h1 class="page-title display-4">Administration</h1>
-      <h4 class="page-sub-title">Administration</h4>
-    </a>
-    <!-- Header Tools -->
-    <div class="header-tools d-flex align-items-center">
-      <button type="button" class="btn-icon">
-        <img src="../../../../assets/images/logo/e-mail.png" class="envelope" alt="envelope">
-        <span class="badge badge-info rounded-circle">4</span>
-      </button>
-      <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        <div class="media align-items-center mx-3">
-          <img src="../../../../assets/images/users/avatar.png" class="mr-3 rounded-circle user" alt="User-img">
-          <div class="media-body mr-3">
-            <h6 class="m-0 text-banner-color user-name">John Doe</h6>
-          </div>
-          <img src="../../../../assets/images/logo/arrow.png" class=" fa-arrow" alt="angle-down">
-        </div>
-      </a>
+<header id="topbar" class="bg-dark p-0 px-4 d-flex justify-content-between align-items-center">
+  <!-- Page-Title -->
+
+  <div class="d-flex align-items-center">
+    <label class="text-light mr-3 d-md-none mt-2" for="sidebarToggle">
+      <!-- <img src="../../../../assets/images/logo/.png" alt="close"> -->
+      &#9776;
+    </label>
+    <div class="header-wrap">
+      <h4 class="page-sub-title " data-title="Administration"> Administration </h4>
     </div>
-    <!-- End: Header Tools -->
-  </nav>
+  </div>
+
+  <!-- Start : Header Tools -->
+  <div class="header-tools   d-flex align-items-center">
+    <button class="btn-icon">
+      <img src="../../../../assets/images/logo/e-mail.png" class="envelope" alt="envelope">
+      <span class="badge badge-info rounded-circle">4</span>
+    </button>
+    <div class="dropdown d-none d-md-flex">
+      <button class="d-flex align-items-center justify-content-between" id="dropdownButton" data-toggle="dropdown">
+        <img src="../../../../assets/images/users/avatar.png" class="ml-3 mr-2 rounded-circle user" alt="User-img">
+        <h6 class=" text-lighter user-name m-0 p-0">{{ fullName }}</h6>
+        <img src="../../../../assets/images/logo/arrow.png" class=" fa-arrow ml-2" alt="angle-down">
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownButton">
+        <a class="dropdown-item" href="#">{{ fullName }}</a>
+        <a class="dropdown-item" href="#">Help</a>
+        <a class="dropdown-item" href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+  <!-- End: Header Tools -->
 </header>
 <!-- End : Topbar -->

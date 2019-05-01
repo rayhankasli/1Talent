@@ -4,11 +4,14 @@
  * @description This module file is used for create single instance
  */
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 // --------------------------------------------------------
 import { EnvironmentConfigService } from './environment-config/environment-config.service';
+import { getEnvironment } from './get-environment';
+import { AuthGuard } from './guards/auth.guard';
 import { LoaderService } from './loader/loader.service';
 import { NavbarModule } from './navbar/navbar.module';
+import { AuthService } from './services/auth/auth.service';
 
 /**
  * NgModule - This module use for declare all the features
@@ -17,14 +20,22 @@ import { NavbarModule } from './navbar/navbar.module';
   declarations: [
   ],
   exports: [
-    NavbarModule,
+    NavbarModule
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   providers: [
+    AuthGuard,
+    AuthService,
     EnvironmentConfigService,
-    LoaderService,
-  ],
+    {
+      deps: [EnvironmentConfigService],
+      multi: true,
+      provide: APP_INITIALIZER,
+      useFactory: getEnvironment
+    },
+    LoaderService
+  ]
 })
 export class CoreModule { }

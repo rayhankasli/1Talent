@@ -7,20 +7,24 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BannerComponent } from './banner/banner.component';
-import { VacancyService } from './services/vacancy.service';
-// Ng module used to declarations, import , export, provide service of VacancyService
+/** Ng module used to declarations, import , export, provide service of VacancyService */
 @NgModule({
   declarations: [BannerComponent],
   exports: [
     BannerComponent,
     CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [VacancyService],
 })
 // Export SharedModule
 export class SharedModule { }

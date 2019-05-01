@@ -1,0 +1,91 @@
+<one-talent-banner [bannerTitle]="jobTitle" [bannerDescription]="jobDescription"></one-talent-banner>
+<section class="apply-for-vacancy bg-white py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-6 d-flex">
+        <h5 class="mt-3">Personal Details</h5>
+        <small class="ml-auto">*Required</small>
+      </div>
+      <div class="col-12">
+        <form [formGroup]="applyVacancyForm" (ngSubmit)="applyforJob()">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <!-- Firstname input-->
+              <input type="text" class="form-control mt-3" id="firstName" placeholder="First name*" formControlName="firstName">
+              <p class="text-primary"  *ngIf="formControls.firstName.touched && formControls.firstName.invalid">
+                    <small *ngIf="formControls.firstName.errors?.required"> FirstName is required </small>
+              </p>
+              <!-- Lastname input-->
+              <input type="text" class="form-control mt-3" id="lastName" placeholder="Last name*" value="" required="" formControlName="lastName">
+              <p class="text-primary" *ngIf="formControls.lastName.touched && formControls.lastName.invalid">
+                    <small *ngIf="formControls.lastName.errors?.required"> LastName is required </small>
+              </p>
+              <!-- Gender input-->
+              <select class="form-control mt-3" id="gender" formControlName="gender">
+                  <option value="" disabled selected> Gender* </option>
+                  <option> Male </option>
+                  <option> Female </option>
+                  <option> Not specified </option>
+                </select>
+              <p class="text-primary" *ngIf="formControls.gender.touched && formControls.gender.invalid">
+                    <small *ngIf="formControls.gender.errors?.required"> Gender is required </small>
+              </p>
+              <!-- DOB input-->
+              <input type="text" class="form-control mt-3" id="dob" placeholder="Date of birth*" formControlName="dob">
+              <p class="text-primary" *ngIf="formControls.dob.touched && formControls.dob.invalid">
+                  <small *ngIf="formControls.dob.errors?.required"> Date of brith is required </small>
+              </p>
+              <!-- Address input-->
+              <textarea class="form-control mt-3" id="address" placeholder="Address*" rows="3" formControlName="address"></textarea>
+              <p class="text-primary" *ngIf="formControls.address.touched && formControls.address.invalid">
+                  <small *ngIf="formControls.address.errors?.required">Address is required </small>
+              </p>
+              <!-- Contact input-->
+              <input type="text" class="form-control mt-3" id="contact" placeholder="Contact*" formControlName="contact">
+              <p class="text-primary" *ngIf="formControls.contact.touched && formControls.contact.invalid">
+                  <small *ngIf="formControls.contact.errors?.required">Contact Number is required </small>
+              </p>
+            </div>
+            <div class="col-12 col-md-6">
+              <!-- Email input-->
+              <input type="email" class="form-control mt-3" id="email" placeholder="Email*" formControlName="email">
+              <p class="text-primary" *ngIf="formControls.email.touched && formControls.email.invalid">
+                  <small *ngIf="formControls.email.errors?.required">Email is required </small>
+              </p>
+              <!-- Qualification input-->
+              <input type="text" class="form-control mt-4" id="qualification" placeholder="Qualification*" formControlName="qualification">
+              <p class="text-primary" *ngIf="formControls.qualification.touched && formControls.qualification.invalid">
+                  <small *ngIf="formControls.qualification.errors?.required">Qualification is required </small>
+              </p>
+              <h5 class="mt-3"> Experience </h5>
+              <!-- Years of experience input-->
+              <input type="text" class="form-control mt-3" id="experience" placeholder="Experience*" formControlName="experience">
+              <p class="text-primary" *ngIf="formControls.experience.touched && formControls.experience.invalid">
+                  <small *ngIf="formControls.experience.errors?.required">Experience is required </small>
+              </p>
+              <!-- Domain input-->
+              <input type="text" class="form-control mt-3" id="domain" placeholder="Domain*" formControlName="domain">
+              <p class="text-primary" *ngIf="formControls.domain.touched && formControls.domain.invalid">
+                  <small *ngIf="formControls.domain.errors?.required">Domain Name is required </small>
+              </p>
+              <!-- Technology input -->
+              <input type="text" class="form-control mt-3" id="technology" placeholder="Technology*" value="vacancyData.technologyName" formControlName="technology">
+              <p class="text-primary" *ngIf="formControls.technology.touched && formControls.technology.invalid" >
+                  <small *ngIf="formControls.technology.errors?.required">Domain Name is required </small>
+              </p>
+              <!-- Resume upload input-->
+              <div class="custom-file mt-3">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" required formControlName="resumeFile">
+                <label class="custom-file-label" for="validatedCustomFile">Upload your Resume(PDF only)*</label>
+              </div>
+              <!-- submit button -->
+              <div class="d-flex mt-3">
+                <button type="submit" class="btn btn-primary px-3 ml-auto">Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

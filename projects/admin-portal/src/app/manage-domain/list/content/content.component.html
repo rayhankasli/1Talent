@@ -1,0 +1,29 @@
+<div class="px-2">
+  <table class="table table-borderless data-table">
+    <!-- Table heading -->
+    <tr class="text-secondary-text-color py-0">
+      <th class="s-no py-0">NO.</th>
+      <th class="domain-name py-0">DOMAIN</th>
+      <th class="description py-0">DESCRIPTION</th>
+      <th class="actions text-center py-0">ACTIONS</th>
+    </tr>
+    <!-- Start : Table Body -->
+    <tbody>
+      <tr class="data-table-row" *ngFor="let domainList of contentData; let i=index; trackBy: domainList?.domainId">
+        <td> {{ i+1 }} </td>
+        <td class="domain-name"> {{ domainList.domainName }} </td>
+        <td class="description" data-toggle="tooltip" title="{{ domainList.description }}"> {{ domainList.description }}
+        </td>
+        <td class="actions text-center">
+          <button title="Edit" (click)="updateDomain(domainList)">
+            <img src="../../../assets/images/logo/actions_edit.png" alt="Edit-icon" class="operation-icon">
+          </button>
+          <button title="Delete" (click)="deleteDomain(domainList.domainId)">
+            <img src="../../../assets/images/logo/actions_delete.png" alt="delete-icon" class="operation-icon ">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- End : Table -->

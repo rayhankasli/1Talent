@@ -5,26 +5,19 @@ body {
     height: 100%;
     font-family: $font-family-base;
     color: $dark;
-    font-size: 1rem;
+
 }
 
 body {
     background-color: $body-bg;
+    overflow: hidden;
 }
 
-.main-container{
-    height: inherit;
-    #toggleMenu{
-        display: none;
-    }
+#toggleMenu {
+    display: none;
 }
-a {
-    &:hover {
-        text-decoration: none;
-        box-shadow: none;
-    }
-    &:focus{
-        text-decoration:none;
-        box-shadow: none;
-    }
+
+select,
+label {
+    cursor: pointer;
 }

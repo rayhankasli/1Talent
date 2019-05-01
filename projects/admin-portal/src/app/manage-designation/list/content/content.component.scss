@@ -1,0 +1,7 @@
+@import "../../../../assets/scss/core/functions";
+@import "../../../../assets/scss/core/mixins";
+@import "../../../../assets/scss/core/placeholder";
+
+.designation-name{
+    @include to-percentage(100);
+}

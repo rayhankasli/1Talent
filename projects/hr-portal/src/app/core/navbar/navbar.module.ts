@@ -13,6 +13,6 @@ import { TopbarComponent } from './topbar/topbar.component';
 @NgModule({
   declarations: [SidebarComponent, TopbarComponent],
   exports: [SidebarComponent, TopbarComponent],
-  imports: [AppRoutingModule, CommonModule],
+  imports: [AppRoutingModule, CommonModule]
 })
 export class NavbarModule { }

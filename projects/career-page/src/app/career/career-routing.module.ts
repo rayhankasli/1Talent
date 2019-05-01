@@ -14,7 +14,10 @@ const routes: Routes = [
     component: CareerComponent,
   },
 ];
-// Ng module is use to imports of routing module
+
+/**
+ * Ng module is use to imports of routing module
+ */
 @NgModule({
   exports: [RouterModule],
   imports: [RouterModule.forChild(routes)],

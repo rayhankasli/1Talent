@@ -1,0 +1,96 @@
+//Heading Starts
+.content-header {
+    .title-heading {
+        font-weight: $font-weight-bold;
+    }
+
+    .operations {
+
+        //For input border none ** Date -picker **
+        .date-picker {
+            border: none;
+            font-weight: $font-weight-bold;
+            background-color: $white;
+        }
+
+        label {
+            color: $primary;
+            font-weight: $font-weight-bold;
+        }
+
+        .filter-date-btn {
+            height: 40px;
+        }
+    }
+
+    .btn {
+        font-weight: $font-weight-bold;
+        font-size: $font-size-sm;
+    }
+
+    //dropdown menu
+    .dropdown {
+        box-shadow: none;
+        font-weight: $font-weight-bold;
+        outline: none;
+        color: $primary;
+        height: 40px;
+
+        .dropdown-item {
+            font-weight: $font-weight-bold;
+            color: $primary;
+        }
+
+        &:hover {
+            background-color: $white;
+            outline: none;
+
+            &:focus {
+                color: $primary;
+                box-shadow: none;
+                outline: none;
+            }
+        }
+    }
+
+    //Search bar
+    .search-bar {
+        input {
+            background-color: $white;
+            border: 0;
+            outline: none;
+            @include transition(400ms);
+            border-bottom: 1px solid $border-color;
+            width: 0;
+            opacity: 0;
+            font-weight: $font-weight-bold;
+
+            &:focus {
+                height: 40px;
+                width: 250px;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+            }
+
+            &:focus+label {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        label {
+            color: $white;
+            background-color: $badge-color;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            @include transition(400ms);
+        }
+    }
+
+    //end : Search bar
+
+}
+
+//End: section heading

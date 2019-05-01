@@ -16,8 +16,10 @@
         <one-talent-map></one-talent-map>
       </div>
       <div class="col-sm-12 col-xl-8">
-        <one-talent-open-positions></one-talent-open-positions>
-        <one-talent-vacancy-card></one-talent-vacancy-card>
+        <!-- to filter by selected options -->
+        <one-talent-open-positions (filterOptionsEvent)="selectedFilter($event)"></one-talent-open-positions>
+        <!-- load filtered and default vacancies -->
+        <one-talent-vacancy-card [vacanciesDataList]="vacancies"></one-talent-vacancy-card>
         <one-talent-recruitment-status></one-talent-recruitment-status>
       </div>
     </div>

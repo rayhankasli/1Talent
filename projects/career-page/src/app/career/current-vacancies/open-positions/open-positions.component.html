@@ -1,43 +1,36 @@
 <!-- Current Vacancies filter -->
-<form action="">
-    <div class="form-row ">
+<form  [formGroup]="openPositionGroup" >
+    <div class="form-row justify-content-between">
         <!-- Dropdown : Select Country -->
-        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-auto pl-0 ">
-            <select name="Country" id="country" class="form-control">
-                <option value="1" selected disabled class="text-wrap">Select Country</option>
-                <option value="2">two</option>
-                <option value="1">One</option>
+        <div class="form-group col-xs-12 col-sm-6 col-md-auto  pl-0">
+            <select name="Country" id="country" class="form-control" formControlName="countryId" (change)="getSelectCountry()">
+                <option [ngValue]="0" disabled="true" selected="selected" class="text-wrap">Select Country</option>
+                <option *ngFor="let countryItem of country" [ngValue]="countryItem.countryId">{{countryItem.countryName}}</option>
             </select>
         </div>
         <!-- Dropdown : Select Domain -->
-        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-auto  ">
-            <select name="Domain" id="domain" class="form-control">
-                <option value="1" selected disabled class="text-wrap">Select Domain</option>
-                <option value="2">two</option>
-                <option value="1">One</option>
+        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+            <select name="Domain" id="domain" class="form-control" formControlName="domainId" (change)="getSelectedDomain($event)">
+                <option  [ngValue]="0"  disabled="true" selected="selected" class="text-wrap">Select Domain</option>
+                <option *ngFor="let domainItem of domain" [ngValue]="domainItem.domainId">{{domainItem.domainName}}</option>
             </select>
         </div>
         <!-- Dropdown : Select Technology -->
-        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-auto  ">
-            <select name="Technology" id="technology" class="form-control">
-                <option value="1" selected disabled class="text-wrap">Select Technology</option>
-                <option value="2">two</option>
-                <option value="1">One</option>
+        <div class="form-group col-xs-12 col-sm-6 col-md-3 ">
+            <select name="Technology" id="technology" class="form-control" formControlName="technologyId" (change)="getSelectedTechnology()">
+                <option [ngValue]="0" disabled="true" selected="selected" class="text-wrap word-break">Select Technology</option>
+                <option  class="text-wrap" *ngFor="let technologyItem of technology" [ngValue]="technologyItem.technologyId">{{technologyItem.technologyName}}</option>
             </select>
         </div>
         <!-- Dropdown : Select Role -->
-        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2  ">
-            <select name="Role" id="role" class="form-control">
-                <option value="1" selected disabled class="text-wrap">Select Role</option>
-                <option value="2">two</option>
-                <option value="1">One</option>
+        <div class="form-group col-xs-12 col-sm-6 col-md-auto col-lg-2">
+            <select name="Role" id="role" class="form-control" formControlName="designationId" (change)="getSelectedDesignation()">
+                <option [ngValue]="0" disabled="true" selected="selected" class="text-wrap">Select Role</option>
+                <option *ngFor="let designationItem of designations" [ngValue]="designationItem.designationId"> {{designationItem.designationTitle}}</option>
             </select>
         </div>
-
-
-        <!-- Button : Filter button -->
-        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-auto">
-            <button class="btn btn-primary w-100"> Find Open Position </button>
+        <div class="form-group col-xs-12 col-sm-6 col-md-auto pr-0">
+            <button type="button" [disabled]="btndisable" [ngClass]="{'not-allowed' : btndisable}" class="btn btn-primary w-100" (click)="filterByselection()">Find Open Position</button>
         </div>
     </div>
 </form>

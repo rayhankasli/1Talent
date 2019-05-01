@@ -2,26 +2,24 @@
 
 button {
     background-color: transparent;
-    @include border(all, solid, 0, transparent)
+    @include border(all, solid, 0, transparent);
 }
 
 // Default focused element style
 
-button,
-input,
-a,
-textarea {
-    &:focus,
-    &.focus {
-        @extend %focus;
+    button,input,a,textarea {
+        &:focus,
+        &.focus {
+            @extend %noFocus;
+        }
     }
-}
 
 input {
+
     &:focus,
     &.focus {
         &+label:before {
-            @extend %focus;
+            @extend %noFocus;
         }
     }
 }
@@ -52,6 +50,7 @@ strong {
 a {
     text-decoration: none;
     color: inherit;
+
     &:hover {
         text-decoration: none;
     }

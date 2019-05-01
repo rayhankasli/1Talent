@@ -11,8 +11,15 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
  * @author: Bhumi Desai
  * @created date: 25/03/2019
  */
-export function Validatecharacters (control: AbstractControl): ValidationErrors {
-    if (!/^[a-zA-Z]*$/.test(control.value)) {
+export function validateCharacters (control: AbstractControl): ValidationErrors {
+    // !/^[^-\s][a-zA-Z ]+$/.test(control.value)   control.value.search(/\S|$/)
+    // if (!/^[a-zA-Z ]*$/.test(control.value)) {
+    //     return { invalidcharacters: true };
+    // } else if (!/\S|$/.test(control.value)) {
+    //     return { invalidspace: true };
+    // }
+    // return null;
+    if (!/^[^-\s][a-zA-Z ]+$/.test(control.value)) {
         return { invalidcharacters: true };
     }
     return null;
@@ -21,7 +28,7 @@ export function Validatecharacters (control: AbstractControl): ValidationErrors 
 /**
  * It checks the control value of form is number or not.
  * This means that it accepts only number.
- * And also it checks if the number is less than 10 or not.
+ * And also it checks if the number is less than 50 or not.
  *  the definition of ValidationErrors, it has the below index signature
  *   type ValidationErrors = {
  *      [key: string]: any;
@@ -29,7 +36,7 @@ export function Validatecharacters (control: AbstractControl): ValidationErrors 
  * @author: Bhumi Desai
  * @created date: 25/03/2019
  */
-export function ValidateOnlyNumber (control: AbstractControl): ValidationErrors {
+export function validateOnlyNumber (control: AbstractControl): ValidationErrors {
     if (/^\d+$/.test(control.value) && (control.value > 50 || control.value < 1)) {
         return { invalidvacancy: true };
     }
@@ -41,26 +48,25 @@ export function ValidateOnlyNumber (control: AbstractControl): ValidationErrors 
 }
 
 /**
- * Validates number and dot
+ * Validates number and plus
  * It checks whether it is number or not.
- * Also allows one single dot and a plus symbol
+ * Also allows one single plus symbol
  * @author: Bhumi Desai
  * @created date: 25/03/2019
  */
-export function ValidateNumberAndDot (control: AbstractControl): ValidationErrors {
+export function validateNumberAndPlus (control: AbstractControl): ValidationErrors {
 
-    if ((!/^[0-9]*\.?[0-9]\+$/.test(control.value)) && (!/^\d+$/.test(control.value)) && (!/^[0-9]*\.?[0-9]$/.test(control.value))) {
+    if ((!/^[0-9]*\+?$/.test(control.value)) && (!/^\d+$/.test(control.value))) {
         return { invalidnumbers: true };
     } else {
-        if ((/^\d+$/.test(control.value) && (control.value > 30 || control.value < 1)) ||
-            (/^[0-9]*\.?[0-9]$/.test(control.value) && (control.value > 30 || control.value < 1))) {
+        if ((/^\d+$/.test(control.value) && (control.value > 30 || control.value < 1))) {
             return { invalidRange: true };
         }
-        if (control.value.indexOf('+') > 0) {
 
+        if ((control.value.indexOf('+') > 0)) {
             const trimEndPoint: number = control.value.indexOf('+');
             const dumNumber: string = control.value;
-            const numString: string = dumNumber.substr(0, trimEndPoint - 1);
+            const numString: string = dumNumber.substr(0, trimEndPoint);
 
             const myNumber: number = +numString;
             if (myNumber > 30) {
@@ -69,5 +75,19 @@ export function ValidateNumberAndDot (control: AbstractControl): ValidationError
 
         }
     }
+
     return null;
 }
+/**
+ * Validates starting with only number and does not allow negative values
+ * It checks whether it is number or not.
+ * @author: Bhumi Desai
+ * @created date: 09/04/2019
+ */
+export function validateSalary (control: AbstractControl): ValidationErrors {
+    if (!/^[1-9][a-zA-Z0-9 _.-]*$/.test(control.value)) {
+        return { invalidsalary: true };
+    }
+    return null;
+}
+

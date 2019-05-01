@@ -7,7 +7,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // -------------------------------------------- //
-import { Observable } from 'rxjs/';
+import { BehaviorSubject, Observable } from 'rxjs/';
 import { EnvironmentConfigService } from '../core/environment-config/environment-config.service';
 import { Designation } from './designation.model';
 
@@ -15,12 +15,18 @@ import { Designation } from './designation.model';
  * ManageDesignationService is use to perform opration like add, upadate, delete designation with server
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ManageDesignationService {
 
   /** serviceUrl store url of server */
   public serviceUrl: string;
+
+  /** insertDesignation */
+  public insertDesignation: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /** updateDesignationById */
+  public updateDesignationById: BehaviorSubject<Designation> = new BehaviorSubject<Designation>(null);
 
   /**
    * Creates an instance of manage designation service.
@@ -36,7 +42,7 @@ export class ManageDesignationService {
    * @returns all designation data from server
    */
   public getAllDesignation (): Observable<Designation[]> {
-    return this.httpClient.get<Designation[]>(this.serviceUrl + 'Designations');
+    return this.httpClient.get<Designation[]>(this.serviceUrl + 'Designation');
   }
 
   /**
@@ -44,7 +50,7 @@ export class ManageDesignationService {
    * @returns designation data from server as per designation id
    */
   public getDesignationById (designationId: number): Observable<Designation> {
-    return this.httpClient.get<Designation>(this.serviceUrl + 'Designations/' + designationId);
+    return this.httpClient.get<Designation>(this.serviceUrl + 'Designation/' + designationId);
   }
 
   /**
@@ -53,7 +59,7 @@ export class ManageDesignationService {
    * @returns designation Observable
    */
   public createDesignation (designation: { [key: string]: string }): Observable<Designation> {
-    return this.httpClient.post<Designation>(this.serviceUrl + 'Designations', designation);
+    return this.httpClient.post<Designation>(this.serviceUrl + 'Designation', designation);
   }
 
   /**
@@ -62,7 +68,7 @@ export class ManageDesignationService {
    * @returns designation observable
    */
   public updateDesignation (designation: { [key: string]: number | string }): Observable<Designation> {
-    return this.httpClient.put<Designation>(this.serviceUrl + 'Designations/' + designation.designationId, designation);
+    return this.httpClient.put<Designation>(this.serviceUrl + 'Designation/' + designation.designationId, designation);
   }
 
   /**
@@ -71,7 +77,30 @@ export class ManageDesignationService {
    * @returns designation Observable
    */
   public deleteDesignation (designationId: number): Observable<Designation[]> {
-    return this.httpClient.delete<Designation[]>(this.serviceUrl + 'Designations/' + designationId);
+    return this.httpClient.delete<Designation[]>(this.serviceUrl + 'Designation/' + designationId);
+  }
+
+  /**
+   * Sets designation insert
+   * @param flagInsert
+   */
+  public setDesignationInsert (flagInsert: boolean): void {
+    this.insertDesignation.next(flagInsert);
+  }
+
+  /**
+   * setDesignationUpdateForUpdate
+   */
+  public setDesignationForUpdate (data: Designation): void {
+    this.updateDesignationById.next(data);
+  }
+
+  /**
+   * getDesignationUpdateForUpdate
+   * @returns data as observeble
+   */
+  public getDesignationForUpdate (): Observable<Designation> {
+    return this.updateDesignationById.asObservable();
   }
 
 }

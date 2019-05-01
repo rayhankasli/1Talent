@@ -1,0 +1,56 @@
+<!-- Start: Form -->
+<aside *ngIf="isModalShow" class="form-section bg-white flex-grow-1 d-flex flex-column">
+  <div
+    class="form-heading d-flex justify-content-between align-items-center flex-shrink-0 p-3 bg-light border border-bottom-primary">
+    <h5 class="text-module-heading m-0">{{ modalHeading }}</h5>
+    <a (click)="addTechnologyFormHide()">
+      <img src="../../../assets/images/logo/close.png" alt="close" class="cursor-pointer">
+    </a>
+  </div>
+  <div class=" d-flex overflow-auto pt-3 w-100 h-100">
+    <form class="form mx-3 w-100" [formGroup]="addTechnologyForm" (ngSubmit)="addTechnologyForm.valid">
+      <div class="form-group">
+        <label for="select-domain">Domain Name</label>
+        <select class="form-control form-control-sm" formControlName="domainId" (change)="getDomain($event)">
+          <option value="" disabled selected="selected" class="text-wrap">Select Domain</option>
+          <option *ngFor="let domain of domainList; trackBy: domain?.domainId" [ngValue]="domain.domainId">
+            {{ domain.domainName }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="technology-name">Technology Name *</label>
+        <input class="form-control form-control-sm w-100" type="text" formControlName="technologyName"
+          id="technology-name" (keypress)="avoidFirstBlankSpace($event)" oneTalentRemoveSpace
+          [ngClass]="{'is-invalid':technologyValidation.technologyName.touched && technologyValidation.technologyName.invalid}">
+        <div class="invalid-feedback">
+          <div *ngIf="technologyValidation.technologyName.errors?.required">Technology name is required</div>
+          <div *ngIf="technologyValidation.technologyName.errors?.maxlength">Allow only thirty character</div>
+          <div *ngIf="technologyValidation.technologyName.errors?.invalidcharacters">Do Not Allow</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="activity-description">Technology Description</label>
+        <textarea oneTalentRemoveSpace class="form-control form-control-sm" (keypress)="avoidFirstBlankSpace($event)"
+          oneTalentRemoveSpace id="activity-description" rows="3" formControlName="description"
+          [ngClass]="{'is-invalid':technologyValidation.description.touched && technologyValidation.description.invalid}"></textarea>
+        <div class="invalid-feedback">
+          <div *ngIf="technologyValidation.description.errors?.maxlength">Allow only 200 character</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="key-skills">Key Skills Required</label>
+        <tag-input [disable]="!hideElement" formControlName='skills' [editable]='true' [separatorKeyCodes]="[13,188]"
+          [displayBy]="'skill'" [identifyBy]="'skill'" [errorMessages]="errorMessages" [validators]="validators"
+          (onTagEdited)="onTagEdited($event)" secondaryPlaceholder="Add Skills" [onRemoving]="onRemoving"
+          (onRemove)="remove($event)" (onAdd)="onItemAdded($event)">
+        </tag-input>
+      </div>
+    </form>
+  </div>
+  <footer class="form-foot p-3 d-flex align-items-center justify-content-between">
+    <span class="text-danger">* Indicates required field</span>
+    <button [disabled]="!hideElement" type="button" class="btn btn-info px-4" (click)="addTechnology()">SAVE</button>
+  </footer>
+</aside>
+<!-- Form End -->

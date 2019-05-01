@@ -1,0 +1,110 @@
+//Heading Starts
+.content-header {
+  .title-heading {
+    font-weight: $font-weight-bold;
+    font-weight: 600;
+  }
+
+  .operations {
+
+    //For input border none ** Date -picker **
+    .date-picker {
+      border: none;
+      font-weight: $font-weight-bold;
+      background-color: $white;
+    }
+
+    label {
+      color: $primary;
+      font-weight: $font-weight-bold;
+    }
+
+    .filter-date-btn {
+      height: 40px;
+    }
+
+    /* For Padding in toggleable mode*/
+    .toggleable-item {
+      @include media-breakpoint-down(lg) {
+        padding: 5px 0;
+      }
+    }
+  }
+
+  .btn {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+  }
+
+  //dropdown menu
+  .dropdown {
+    box-shadow: none;
+    font-weight: $font-weight-bold;
+    outline: none;
+    color: $primary;
+    height: 40px;
+
+    .dropdown-item {
+      font-weight: $font-weight-bold;
+      color: $primary;
+    }
+
+    &:hover {
+      background-color: $white;
+      outline: none;
+
+      &:hover {
+        color: $primary;
+        box-shadow: none;
+        outline: none;
+      }
+    }
+  }
+
+  //Search bar
+  .search-bar {
+    input {
+      background-color: $white;
+      border: 0;
+      outline: none;
+      transition: all 0.4s;
+      border-bottom: 1px solid $border-color;
+      width: 0;
+      opacity: 0;
+      font-weight: $font-weight-bold;
+
+      &:hover {
+        height: 40px;
+        width: 250px;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+      }
+      // .input-toggle {
+      //   height: 40px;
+      //   width: 250px;
+      //   opacity: 1;
+      //   visibility: visible;
+      //   box-shadow: none;
+      // }
+
+      &:hover+label {
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    label {
+      color: $white;
+      background-color: $blue;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+  }
+
+  //end : Search bar
+}
+
+//End: section heading

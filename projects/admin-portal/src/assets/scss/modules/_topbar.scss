@@ -1,60 +1,67 @@
 // Topbar SCSS
 #topbar {
-  height: 90px;
-  .navbar {
-    height: inherit;
-    .header-wrap {
-      position: relative;
-    }
-    .page-sub-title {
-      position: absolute;
-      top: 17px; //magic number
-      color: $banner-color;
-      font-weight: $font-weight-bold;
-    }
+    height: 90px;
 
-    h1 {
-      margin: 0;
-      font-weight: $font-weight-bold;
-      color: $banner-shadow;
+    .header-wrap {
+        .page-sub-title {
+            position: relative;
+            color: $lighter;
+            font-weight: $font-weight-bold;
+            z-index: 1;
+            &::after {
+                content: attr(data-title);
+                position: absolute;
+                font-weight: $font-weight-bold;
+                color: $gray-800;
+                font-size: 3rem;
+                z-index: -1;
+                top: -65%;
+                width: 250%;
+            }
+        }
+
+        .page-title {
+            margin: 0;
+            font-weight: $font-weight-bold;
+            color: $gray-800;
+        }
     }
+}
+
+.header-tools {
+    z-index:3;
     .btn-icon {
-      box-shadow: none;
-        outline: none;
-      .envelope {
+        position: relative;
         box-shadow: none;
         outline: none;
-        height: 20px;
-      }
+
+        .envelope {
+            box-shadow: none;
+            outline: none;
+            height: 20px;
+
+        }
+
+        .badge {
+            position: absolute;
+
+            top: -13px; //magic numbers
+            right: -6px; //magic numbers
+        }
+
     }
 
     .user {
-      height: 45px;
+        height: 45px;
     }
-    .fa-arrow {
-      height: 10px;
-    }
-  }
-  .header-tools {
-    .btn-icon {
-      position: relative;
-      .badge {
-        position: absolute;
 
-        top: -13px; //magic numbers
-        right: -6px; //magic numbers
-      }
+    .fa-arrow {
+        height: 10px;
     }
-    .nav-link {
-      outline: none;
-      box-shadow: none;
-      padding: 0;
-      color: $dark;
-    }
-  }
-  .user-name {
+}
+
+.user-name {
     @include media-breakpoint-down(sm) {
-      display: none;
+        display: none;
     }
-  }
 }

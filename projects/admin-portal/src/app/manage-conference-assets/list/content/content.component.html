@@ -1,0 +1,26 @@
+<div class="px-2">
+  <table class="table table-borderless data-table">
+    <!-- Table heading -->
+    <tr class="text-secondary-text-color py-0">
+      <th class="s-no py-0">NO.</th>
+      <th class="designation-name py-0">ASSETS</th>
+      <th class="actions text-center py-0">ACTIONS</th>
+    </tr>
+    <!-- Start : Table Body -->
+    <tbody>
+      <tr class="data-table-row" *ngFor="let asset of contentData; let i=index; trackBy: asset?.assetTypeId">
+        <td class="s-no">{{ i+1 }}</td>
+        <td class="asset-name"> {{ asset.assetType }} </td>
+        <td class="actions text-center">
+          <button title="Edit" (click)="editAsset(asset)">
+            <img src="../../../assets/images/logo/actions_edit.png" alt="Edit-icon">
+          </button>
+          <button title="Delete" (click)="deleteAsset(asset.assetTypeId)">
+            <img src="../../../assets/images/logo/actions_delete.png" alt="delete-icon">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- End : Table -->
+</div>

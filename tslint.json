@@ -2,7 +2,6 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
-  "extends": ["tslint:recommended"],
   "rules": {
     "align": [
       true,
@@ -32,9 +31,10 @@
       "allow-static-only",
       "allow-empty-class"
     ],
+    "ordered-imports": false,
     "unnecessary-constructor": true,
     "prefer-method-signature": true,
-    "space-before-function-paren": true,
+    "space-before-function-paren": false,
     "quotemark": [
       true,
       "single",
@@ -71,11 +71,11 @@
     "no-angle-bracket-type-assertion": false,
     "radix": false,
     "object-literal-shorthand": [
-      true,
+      true, 
       "always"
     ],
     "no-shadowed-variable": [
-      true,
+      true, 
       {
         "import": false,
         "class": false,
@@ -84,7 +84,7 @@
       }
     ],
     "whitespace": [
-      true,
+      false,
       "check-branch",
       "check-decl",
       "check-operator",
@@ -132,7 +132,7 @@
           "public-constructor",
           "protected-constructor",
           "private-constructor",
-
+          
           "public-static-method",
           "protected-static-method",
           "private-static-method",
@@ -154,18 +154,23 @@
     "no-inferrable-types": false,
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
-    "object-literal-sort-keys": [
-      true,
-      "ignore-case",
-      "locale-compare",
-      "match-declaration-order",
-      "shorthand-first"
-    ],
+    "object-literal-sort-keys": false,
     "triple-equals": [
       true,
       "allow-null-check",
       "allow-undefined-check"
     ],
+    "trailing-comma": [ true, {
+      "multiline": {
+        "objects": "never", 
+        "arrays": "never",
+        "functions": "never",
+        "exports": "never",
+        "imports": "never",
+        "typeLiterals": "never"
+      },
+     "singleline": "never"
+    }],
     "variable-name": [
       true,
       "check-format",
@@ -180,12 +185,11 @@
     "no-non-null-assertion": true,
     "import-blacklist": [
       true,
-      "rxjs",
-      {
-        "lodash": ["pullAll", "pull"]
-      },
-      {
-        "dummy": ["default"]
+      { 
+        "lodash": ["pullAll", "pull"] 
+      }, 
+      { 
+        "dummy": ["default"] 
       }
     ],
     "directive-selector": [

@@ -1,0 +1,27 @@
+
+<div class="px-2">
+  <table class="table table-borderless data-table">
+    <!-- Table heading -->
+    <tr class="text-secondary-text-color py-0">
+      <th class="s-no py-0">NO.</th>
+      <th class="designation-name py-0">DESIGNATION</th>
+      <th class="actions text-center py-0">ACTIONS</th>
+    </tr>
+    <!-- Start : Table Body -->
+    <tbody>
+      <tr class="data-table-row" *ngFor="let designation of contentData; let i=index; trackBy: designation?.designationId">
+        <td class="s-no"> {{ i + 1 }} </td>
+        <td class="designation-name"> {{ designation.designationTitle }} </td>
+        <td class="actions text-center">
+          <button title="Edit" (click)="updateDesignation(designation)">
+            <img src="../../../assets/images/logo/actions_edit.png" alt="Edit-icon" class="operation-icon">
+          </button>
+          <button title="Delete" (click)="deleteDesignation(designation.designationId)">
+            <img src="../../../assets/images/logo/actions_delete.png" alt="delete-icon" class="operation-icon ">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- End : Table -->
+</div>

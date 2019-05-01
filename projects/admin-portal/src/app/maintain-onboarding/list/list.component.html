@@ -1,0 +1,12 @@
+<!-- Content Wrapper -->
+<div class="d-flex flex-column h-100 overflow-hidden">
+  <!-- Content Header Selector -->
+  <one-talent-header (isModalShow)="addOnboardingFormShow($event)"></one-talent-header>
+  <div class="overflow-auto h-100">
+    <!-- Table Selector -->
+    <one-talent-content [contentData]="onboardingList" (updateEvent)="editOnboardingData($event)"
+      (deleteEvent)="openDeleteDialog($event)"></one-talent-content>
+    <!-- Input Form -->
+    <one-talent-overlay-modal *ngIf="isShow" (isModalShow)="addOnboardingFormShow($event)"></one-talent-overlay-modal>
+  </div>
+</div>

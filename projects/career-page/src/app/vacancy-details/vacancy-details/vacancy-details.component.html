@@ -1,0 +1,49 @@
+<one-talent-banner [bannerTitle]="jobTitle" [bannerDescription]="jobDescription"></one-talent-banner>
+
+<section class="vacancies-details  bg-white">
+  <div class="container py-5">
+    <!-- Start : Job requirements -->
+    <div class="row no-gutters mb-4">
+      <div class="col-sm-12 col-md-4">
+        <div class="card  py-2 my-1 my-md-5">
+          <h3 class="h3">Experience</h3>
+          <p>{{vacancyDatails.experience}}</p>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="card border-right border-left border-md-0 px-md-4 py-2 my-1 my-md-5">
+          <h3 class="h3">level</h3>
+          <p>{{vacancyDatails.designationTitle}} Level</p>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">  
+        <div class="card px-md-4 py-2 my-1 my-md-5">
+          <h3 class="h3">Employment-type</h3>
+          <p>Full-Time</p>
+        </div>
+      </div>
+    </div>
+    <!-- Job Description -->
+    <section class="description">
+      <h4 class="h4"> Job Description </h4>
+      <p>{{vacancyDatails.jobDescription}}</p>
+    </section>
+    <!-- Responsibilities and skills -->
+    <section class="responsibilities mt-5">
+      <h4 class="h4">Responsibilities and Skills</h4>
+      <p>{{vacancyDatails.responsibilities}}</p>
+    </section>
+    <!-- Key Skils -->
+    <section class="skills mt-5">
+      <h4 class="h4">Key Skils</h4>
+      <p>{{vacancyDatails.skill}}</p>
+    </section>
+
+    <!-- Applt button -->
+    <div class="text-center mt-4">
+      <button class="btn btn-primary px-4 py-2" [routerLink]="['/apply-for-vacancy',vacancyDatails.jobId]">Apply for this position</button>
+    </div>
+    <!-- End : Job requirements -->
+  </div>
+</section>
+<!-- </ng-container> -->

@@ -1,0 +1,11 @@
+<!-- Content Wrapper -->
+<div class="d-flex flex-column h-100 overflow-hidden">
+    <!-- Content Header Selector -->
+    <one-talent-header (isModalShow)="addAssetsFormShow($event)"></one-talent-header>
+    <div class="overflow-auto h-100">
+        <!-- Table Selector -->
+        <one-talent-content [contentData]="assetsList" (updateEvent)="editAssetData($event)" (deleteEvent)="openDeleteDialog($event)"></one-talent-content>
+        <!-- Input Form -->
+        <one-talent-overlay-modal *ngIf="isFormShow" (isModalShow)="addAssetsFormShow($event)"></one-talent-overlay-modal>
+    </div>
+</div>

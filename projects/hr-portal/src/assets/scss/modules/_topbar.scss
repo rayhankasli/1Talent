@@ -1,63 +1,65 @@
 // Topbar SCSS
-#topbar{
-    height: 90px;
-    .navbar{
-        height: inherit;
-        .header-wrap{
-            position: relative;
-        }
-        .page-sub-title{
-            position: absolute;
-            top:17px;                       //magic number
-            color: $banner-color;
-            font-weight: $font-weight-bold;
-        }
-       
-        h1{
-            margin: 0;
-            font-weight: $font-weight-bold;
-            color: $banner-shadow;
-        }
-        .btn-icon{
-            box-shadow: none;
-            outline: none;
-       .envelope{
-            height: 20px;
-        }
-    }
-       
-        .user{
-            height: 45px;
-        }
-         .fa-arrow{
-             height: 10px;
-         }
-    }
-    .header-tools{
-        .btn-icon{
-            position: relative;
-            .badge{
-                position: absolute;
-               
-                    top: -13px;     //magic numbers
-                    right: -6px;    //magic numbers
-             
-            }
-        }
-        .nav-link{
-            outline: none;
-            box-shadow: none;
-            padding: 0;
-            color: $dark;
-        }
-    }
-    .btn-info{
-        font-size:0.625rem;
+#topbar {
+  height: 90px;
+
+  .header-wrap {
+    .page-sub-title {
+      position: relative;
+      color: $lighter;
+      font-weight: $font-weight-bold;
+      z-index: 1;
+      &::after {
+        content: attr(data-title);
+        position: absolute;
         font-weight: $font-weight-bold;
+        color: $gray-800;
+        font-size: 3rem;
+        z-index: -1;
+        top: -65%;
+        width: 250%;
+      }
     }
-    .user-name{
-        @include media-breakpoint-down(sm){
-            display: none;
-        }
+
+    .page-title {
+      margin: 0;
+      font-weight: $font-weight-bold;
+      color: $gray-800;
     }
+  }
+}
+
+.header-tools {
+  z-index: 3;
+  .btn-icon {
+    position: relative;
+    box-shadow: none;
+    outline: none;
+
+    .envelope {
+      box-shadow: none;
+      outline: none;
+      height: 20px;
+    }
+
+    .badge {
+      position: absolute;
+
+      top: -13px; //magic numbers
+      right: -6px; //magic numbers
+    }
+  }
+
+  .user {
+    height: 45px;
+  }
+
+  .fa-arrow {
+    height: 10px;
+  }
+}
+
+.user-name {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
 }

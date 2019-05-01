@@ -2,7 +2,7 @@
 #sidebar {
     width: 90px;
     z-index: 1;
-    .header-sidebar {
+    .sidebar-header {
         height: 90px;
         img {
             height: 35px;
@@ -20,9 +20,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all 0.25s ease;
+            @include transition(250ms);
             .navbar-icon {
-                transition: all 0.25s ease;
+                @include transition(250ms);
                 height: 25px;
                 width: 25px;
             }
@@ -87,7 +87,7 @@
             -webkit-transform: rotateZ(180deg);
             transition: .7s;
         }
-        .dashboard-submenu {
+        .submenu {
             visibility: visible;
             transform: scale(1, 1);
             li {
@@ -98,7 +98,7 @@
             }
         }
     }
-    .dashboard-submenu {
+    .submenu {
         list-style: none;
         height: 0;
         position: absolute;
@@ -111,7 +111,7 @@
             text-decoration: none;
             color: $white;
         }
-        transition: 0.4s ease-in-out;
+        @include transition(400ms);
         li {
             font-weight: $font-weight-bold;
             background: $darker;

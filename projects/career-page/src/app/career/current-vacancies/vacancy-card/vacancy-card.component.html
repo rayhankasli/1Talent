@@ -1,27 +1,42 @@
 <!-- Job Opening Cards -->
 <div class="row justify-content-center">
   <!-- Job opening card -->
-  <div class="col-xs-12 col-sm-8 col-md-4 mb-3"
-    *ngFor="let vacancy of diplayVacancies; trackBy:vacancy?.jobId; let i=index"
-    [@fadeInRight]="{ value: '', params: { delay: i * 30 },translate: '' }">
-    <div class="card border text-center cursor-pointer">
-      <div class="card-body">
-        <h5> {{ vacancy.jobName }} </h5>
-        <p class=""><small class="text-muted"> {{ vacancy.experience }} + years experience</small>
-        </p>
-        <p class=""><small class="text-muted">Location: {{ vacancy.countryName }}</small>
-        </p>
-        <p class=""><small class="text-muted">Apply now - <span class="text-primary">2
-              Positions</span> </small>
-        </p>
-      </div>
-    </div>
-  </div>
+  <ng-template *ngIf="counterCheck;then notShow; else showBlock">
+  </ng-template>
+  <ng-template #notShow> 
+      <div class="col-xs-12 w-100 mx-3">
+        <div class="card w-100">
+            <div class="card-body text-center">
+                <h4 class="text-primary">No Vacancy Found</h4>
+            </div>
+        </div>
+      </div> 
+  </ng-template>
+  <ng-template #showBlock>
+      <div class="col-xs-12 col-sm-8 col-md-4 mb-3" *ngFor="let vacancy of diplayVacancies">
+        <div class=" cursor-pointer card border text-center" [@vacancyAnimation]="orientation" [routerLink]="['/vacancy-details',vacancy.jobId]">
+            <div class="card-body">
+              <h5> {{ vacancy.jobName }} </h5>
+              <p class=""><small class="text-muted">{{ vacancy.experience }}  years experience</small>
+              </p>
+              <p class=""><small class="text-muted">Location: {{ vacancy.countryName }}</small>
+              </p>
+              <p class=""><small class="text-muted">Apply now - <span class="text-primary">{{ vacancy.vacancies }}
+                    Positions</span> </small>
+              </p>
+              <p class=""><small class="text-muted">Salary : INR {{ vacancy.salary }} </small>
+              </p>
+            </div>
+          </div>
+        </div>
+  </ng-template>  
 </div>
+
 <!-- Navigation buttons -->
 <div class="navigation text-center my-4 ">
-  <small class="position-relative cursor-pointer"> <span class="previous" ng-disabled="isPrevAvailables"
-      (click)="prevVacancyLoad()">P R E V</span> /
-    <span class="next text-primary" ng-disabled="isNextAvailable" (click)="nextVacancyLoad()"> N E X T </span></small>
+  <small class="position-relative "> 
+    <button type="button" class="previous" [disabled]="isPrevAvailable" [ngClass]="{'not-allowed' : isPrevAvailable}"  (click)="prevVacancyLoad()" >P R E V</button> /
+    <button type="button" class="next text-primary"  [disabled]="isNextAvailable" [ngClass]="{'not-allowed' : isNextAvailable}"  (click)="nextVacancyLoad()">N E X T</button> 
+    </small>
 </div>
 <hr>

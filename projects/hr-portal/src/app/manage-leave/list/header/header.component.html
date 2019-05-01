@@ -1,0 +1,58 @@
+<div class="content-header flex-shrink-0 border border-bottom-dark ">
+        <nav class="navbar navbar-expand-lg navbar-light">
+               <h5 class="title-heading text-tertiary m-0">Leave Management</h5>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>       
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <div class="operations d-flex flex-grow-1 align-items-center">
+                  <ul class="navbar-nav flex-grow-1 justify-content-end">
+                    <li class="toggleable-item">
+                        <div class="form-group border d-flex align-items-center rounded border border-primary py-0 mx-2 my-0">
+                            <input #inputFrom matInput readonly="readonly" class="form-control form-control-md date-picker"
+                                [max]="maxDate" [matDatepicker]="picker" placeholder="From :" [(ngModel)]="fromdate"
+                                (ngModelChange)="selectedFromDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </li>
+                    <li class="toggleable-item">
+                        <div class="form-group border d-flex align-items-center rounded border border-primary py-0 mx-2 my-0 ">
+                            <input [disabled]="buttonDisabled" #inputTo matInput readonly="readonly"
+                                class="form-control form-control-md date-picker" [min]="minDate" [matDatepicker]="topicker"
+                                placeholder="To:" [(ngModel)]="todate" (ngModelChange)="selectedToDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="topicker"></mat-datepicker-toggle>
+                            <mat-datepicker #topicker id="To :"></mat-datepicker>
+                        </div>
+                    </li>
+                    <li class="toggleable-item">
+                        <button class="btn btn-info mx-2 filter-date-btn d-sm-block" (click)="filterByDate()">GO</button>
+                    </li>
+                    <li class="toggleable-item">
+                        <select class="form-control-sm mx-2 dropdown px-3 border border-primary" [(ngModel)]="selectedStatus" (change)="selected()">
+                            
+                            <option class="dropdown-item" [ngValue]="0">All Status</option>
+                            <option class="dropdown-item" *ngFor="let status of leaveStatusData; trackBy: status?.leaveStatusId" [ngValue]="status.leaveStatusId">
+                                {{ status.status }}</option>
+                            <!-- <option class="dropdown-item" [ngValue]="2">Approved</option>
+                            <option class="dropdown-item" [ngValue]="1">Pending</option>
+                            <option class="dropdown-item" [ngValue]="4">Rejected</option>
+                            <option class="dropdown-item" [ngValue]="3">Cancelled</option> -->
+                        </select>
+                    </li>
+                    <li class="toggleable-item">
+                        <form [formGroup]="form">
+                            <div class="search-bar position-relative d-flex align-items-center">
+                                <input oneTalentOnlyCharacters (isValidTextEvent)="checkValidSearch($event)" id="search" type="text" placeholder="First Name" formControlName="searchTextBox"
+                                    (keyup)="keyUpp()" class="text-primary pl-2 h-100">
+                                <label for="search" class="d-flex justify-content-center align-items-center rounded text-center">
+                                    <img src="../../../../assets/images/logo/search.png" alt="search-icon">
+                                </label>
+                            </div>
+                        </form>
+                    </li>
+                  </ul>
+                </div>
+                </div>
+              </nav>
+</div>

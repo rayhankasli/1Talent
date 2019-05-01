@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'one-talent-sidebar',
   styleUrls: ['./sidebar.component.scss'],
-  templateUrl: './sidebar.component.html',
+  templateUrl: './sidebar.component.html'
 })
 
 /** SideBar component for the sidebar */

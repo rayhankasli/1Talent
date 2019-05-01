@@ -1,1 +1,4 @@
-// SCSS Functions 
+// for converting variable value to percentage
+@function percent($var){
+    @return $var * 1%;
+}

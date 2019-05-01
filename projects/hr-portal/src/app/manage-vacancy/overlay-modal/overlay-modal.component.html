@@ -1,0 +1,183 @@
+<!-- Start : Add vacancy -->
+<aside class="form-section bg-white d-flex flex-column flex-grow-1 h-100" id="AddVacancy">
+  <!-- Start: form -->
+  <div
+    class="form-heading d-flex justify-content-between align-items-center flex-shrink-0 p-3 bg-light border border-bottom-light">
+    <h5 class=" text-tertiary m-0">{{ modalHeading }}</h5>
+    <button (click)="closeModalForm()">
+      <img src="../../../../assets/images/logo/close.png" alt="close">
+    </button>
+  </div>
+  <div class="pt-2 d-flex mx-auto overflow-auto w-100 h-100">
+    <form class="form px-3 w-100" [formGroup]="vacancyForm">
+      <div *ngIf="!isSchedule;else other_content">
+        <div class="form-group">
+          <label for="Job-name">Job Title<span class="text-danger">*</span></label>
+          <input class="form-control form-control-sm" type="text" id="Job-name" formControlName="jobName">
+          <div *ngIf="formControls.jobName.invalid && formControls.jobName.touched">
+            <div *ngIf="formControls.jobName.errors?.required" class="text-danger">
+              <small>Job Title is required</small>
+            </div>
+            <div *ngIf="formControls.jobName.errors?.minlength" class="text-danger">
+              <small>Job Title must have minimum 2 characters</small>
+            </div>
+            <div *ngIf="formControls.jobName.errors?.maxlength" class="text-danger">
+              <small>Job Title should not exceed 20 characters</small>
+            </div>
+            <div *ngIf="formControls.jobName.errors?.invalidcharacters" class="text-danger">
+              <small>Only characters are allowed and it should not accept space at the starting of the
+                field</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="vacancy">No. of Vacancy<span class="text-danger">*</span></label>
+          <input class="form-control form-control-sm" id="vacancy" type="number" min="1" max="50"
+            formControlName="vacancies">
+          <div
+            *ngIf="formControls.vacancies.invalid && formControls.vacancies.touched && formControls.vacancies.errors">
+            <div *ngIf="formControls.vacancies.errors?.required" class="text-danger">
+              <small>No. of vacancies is required</small>
+            </div>
+            <div *ngIf="formControls.vacancies.errors?.invalidnumber" class="text-danger">
+              <small>Only Numbers are allowed</small>
+            </div>
+            <div *ngIf="formControls.vacancies.errors?.invalidvacancy" class="text-danger">
+              <small>Number should be between 1 to 50</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="experience">Experience<span class="text-danger">*</span></label>
+          <input class="form-control form-control-sm " id="experience" type="text" formControlName="experience">
+          <div *ngIf="formControls.experience.invalid && formControls.experience.touched">
+            <div *ngIf="formControls.experience.errors?.required" class="text-danger">
+              <small>Experience is required</small>
+            </div>
+            <div *ngIf="formControls.experience.errors?.invalidnumbers" class="text-danger">
+              <small>Only Numbers with a plus is allowed</small>
+            </div>
+            <div *ngIf="formControls.experience.errors?.invalidRange" class="text-danger">
+              <small>Experience should not be greater then 30 years</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="domain">Domain<span class="text-danger">*</span></label>
+          <select class="form-control form-control-sm " id="domain" formControlName="domainId"
+            placeholder="selectedOption">
+            <option value="null" disabled>Select Domain</option>
+            <option *ngFor="let Domain of domain; trackBy: Domain?.domainId" [ngValue]="Domain.domainId">
+              {{ Domain.domainName }}
+            </option>
+          </select>
+          <div *ngIf="formControls.domainId.invalid && formControls.domainId.touched">
+            <div *ngIf="formControls.domainId.errors?.required" class="text-danger">
+              <small>Domain is required</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="technology">Technology<span class="text-danger">*</span></label>
+          <select class="form-control form-control-sm dropdownMenu " id="technology" formControlName="technologyId">
+            <option value="null" disabled>Select Technology</option>
+            <option *ngFor="let Technology of technology; trackBy: Technology?.technologyId"
+              [ngValue]="Technology.technologyId">{{ Technology.technologyName }}
+            </option>
+          </select>
+          <div *ngIf="formControls.technologyId.invalid && formControls.technologyId.touched">
+            <div *ngIf="formControls.technologyId.errors?.required" class="text-danger">
+              <small>Technology is required</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="designation">Designation<span class="text-danger">*</span></label>
+          <select class="form-control form-control-sm " id="designation" formControlName="designationId">
+            <option value="null" disabled>Select Designation</option>
+            <option *ngFor="let Designation of designation; trackBy: Designation?.designationId"
+              [ngValue]="Designation.designationId">{{ Designation.designationTitle }}
+            </option>
+          </select>
+          <div *ngIf="formControls.designationId.invalid && formControls.designationId.touched">
+            <div *ngIf="formControls.designationId.errors?.required" class="text-danger">
+              <small>Designation is required</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">Country<span class="text-danger">*</span></label>
+          <select class="form-control form-control-sm " id="country" formControlName="countryId">
+            <option value="null" disabled>Select Country</option>
+            <option *ngFor="let Country of country; trackBy: Country?.countryId" [ngValue]="Country.countryId">
+              {{ Country.countryName }}</option>
+          </select>
+          <div *ngIf="formControls.countryId.invalid && formControls.countryId.touched">
+            <div *ngIf="formControls.countryId.errors?.required" class="text-danger">
+              <small>Country is required</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="salary">Salary<span class="text-danger">*</span></label>
+          <input class="form-control form-control-sm" id="salary" type="text" formControlName="salary" />
+          <div *ngIf="formControls.salary.invalid && formControls.salary.touched">
+            <div *ngIf="formControls.salary.errors?.required" class="text-danger">
+              <small>Salary is required</small>
+            </div>
+            <div *ngIf="formControls.salary.errors?.invalidsalary" class="text-danger">
+              <small>Please enter valid salary</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="job-description">Job Description<span class="text-danger">*</span></label>
+          <textarea class="form-control form-control-sm" id="job-description" rows="3"
+            formControlName="jobDescription"></textarea>
+          <div *ngIf="formControls.jobDescription.invalid && formControls.jobDescription.touched">
+            <div *ngIf="formControls.jobDescription.errors?.required" class="text-danger">
+              <small>Job Description is required</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="responsibility">Responsibility and Skills<span class="text-danger">*</span></label>
+          <textarea class="form-control form-control-sm" id="responsibility" rows="3"
+            formControlName="responsibilities"></textarea>
+          <div *ngIf="formControls.responsibilities.invalid && formControls.responsibilities.touched">
+            <div *ngIf="formControls.responsibilities.errors?.required" class="text-danger">
+              <small>Responsibilities and Skills is required</small>
+            </div>
+          </div>
+        </div>
+        <!-- End : Add vacancy -->
+      </div>
+
+      <!-- Start : Publish Vacancy -->
+      <ng-template #other_content>
+        <label for="publishdate">Select Date<span class="text-danger">*</span></label>
+        <div class="form-group border d-flex align-items-center rounded border border-primary my-2 py-0">
+          <input readonly="readonly" class="form-control form-control-md date-picker" type="" [min]="minDate"
+            [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date" formControlName="publishDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </ng-template>
+      <!-- End : Publish Vacancy -->
+    </form>
+  </div>
+  <footer class="form-foot p-3">
+    <ng-container *ngIf="!isSchedule">
+      <button type="button" class="btn btn-info px-3 mx-2 my-1" (click)="onSchedule()">Schedule</button>
+      <button type="button" class="btn btn-info px-3 mx-2  my-1" (click)="onPublish()">Publish</button>
+    </ng-container>
+    <button type="submit" class="btn btn-info px-3 mx-2  my-1" (click)="onSubmit()">Save</button>
+  </footer>
+</aside>

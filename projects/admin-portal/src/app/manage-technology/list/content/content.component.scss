@@ -1,0 +1,15 @@
+@import "../../../../assets/scss/core/functions";
+@import "../../../../assets/scss/core/mixins";
+@import "../../../../assets/scss/core/placeholder";
+
+// .techonlogy-name {
+// 	@include to-percentage(10);
+// }
+
+// .domain-name {
+// 	@include to-percentage(10);
+// }
+
+.description {
+	@include to-percentage(30);
+}

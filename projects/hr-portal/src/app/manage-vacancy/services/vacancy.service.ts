@@ -5,13 +5,13 @@
  */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/';
+import { BehaviorSubject, Observable } from 'rxjs/';
 import { EnvironmentConfigService } from '../../core/environment-config/environment-config.service';
 import { Country, Designation, Domain, Technology, Vacancy } from '../vacancy.model';
 
 /** used for service dependency */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 
 /**
@@ -21,10 +21,19 @@ import { Country, Designation, Domain, Technology, Vacancy } from '../vacancy.mo
  */
 export class VacancyService {
 
-  /** url of the http call */
+  /** url for the http call */
   public baseUrl: string;
+  /** url of the dropdown for http call */
+  public baseUrlDropdown: string;
+
+  /** insertJob is the behaviour subject and initialed with boolean value false  */
+  public insertJob$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  /** updateSubject is the behaviour subject to update the records */
+  public updateSubject: BehaviorSubject<Vacancy> = new BehaviorSubject(new Vacancy());
+
   constructor (private http: HttpClient, private environmentConfigService: EnvironmentConfigService) {
     this.baseUrl = environmentConfigService.getBaseUrl();
+    this.baseUrlDropdown = environmentConfigService.getBaseUrlOfDropdown();
   }
 
   /**
@@ -34,7 +43,7 @@ export class VacancyService {
    * @returns all vacancies
    */
   public getAllVacancies (): Observable<Vacancy[]> {
-    return this.http.get<Vacancy[]>(this.baseUrl);
+    return this.http.get<Vacancy[]>(this.baseUrl + 'vacancies');
   }
 
   /**
@@ -44,7 +53,27 @@ export class VacancyService {
    * @returns vacancies i.e returns the inserted records
    */
   public insertVacancies (vacancy: Vacancy): Observable<Vacancy> {
-    return this.http.post<Vacancy>(this.baseUrl, vacancy);
+    return this.http.post<Vacancy>(this.baseUrl + 'vacancies', vacancy);
+  }
+
+  /**
+   * Updates vacancies
+   * @author: Bhumi Desai
+   * @created date: 03/04/2019
+   * @returns id and vacancies i.e returns the updated records
+   */
+  public updateVacancies (vacancy: Vacancy, id: number): Observable<Vacancy> {
+    return this.http.put<Vacancy>(this.baseUrl + 'vacancies/' + id, vacancy);
+  }
+
+  /**
+   * deletes vacancy
+   * @author: Bhumi Desai
+   * @created date: 03/04/2019
+   * @returns id to delete the records
+   */
+  public deleteVacancy (vacancyId: number): Observable<Vacancy> {
+    return this.http.delete<Vacancy>(this.baseUrl + 'vacancies/' + vacancyId);
   }
 
   /**
@@ -54,8 +83,7 @@ export class VacancyService {
    * @returns all domains
    */
   public getDomain (): Observable<Domain[]> {
-    const domainUrl: string = 'http://192.168.0.79:8080/api/Domains';
-    return this.http.get<Domain[]>(domainUrl);
+    return this.http.get<Domain[]>(this.baseUrlDropdown + 'Domain');
   }
 
   /**
@@ -65,8 +93,7 @@ export class VacancyService {
    * @returns all technology
    */
   public getTechnology (): Observable<Technology[]> {
-    const technologyUrl: string = 'http://192.168.0.79:8080/api/Technology';
-    return this.http.get<Technology[]>(technologyUrl);
+    return this.http.get<Technology[]>(this.baseUrlDropdown + 'Technology');
   }
   /**
    * Gets all the desigation
@@ -75,8 +102,7 @@ export class VacancyService {
    * @returns all desigation
    */
   public getDesignation (): Observable<Designation[]> {
-    const desigationUrl: string = 'http://192.168.0.79:8080/api/Designations';
-    return this.http.get<Designation[]>(desigationUrl);
+    return this.http.get<Designation[]>(this.baseUrlDropdown + 'Designation');
   }
   /**
    * Gets all the country
@@ -85,8 +111,36 @@ export class VacancyService {
    * @returns all country
    */
   public getCountry (): Observable<Country[]> {
-    const countryUrl: string = 'http://192.168.0.79:8080/api/Country';
-    return this.http.get<Country[]>(countryUrl);
+    return this.http.get<Country[]>(this.baseUrlDropdown + 'Country');
+  }
+
+
+  /**
+   * emits the updated data using next.
+   * @author: Bhumi Desai
+   * @created date: 04/04/2019
+   * @param data : updated records
+   */
+  public sendData (data: Vacancy): void {
+    this.updateSubject.next(data);
+  }
+
+  /**
+   * returns the behaviour subject as observable
+   * @author: Bhumi Desai
+   * @created date: 04/04/2019
+   */
+  public getData (): Observable<Vacancy> {
+    return this.updateSubject.asObservable();
+  }
+  /**
+   * Sets record insert
+   * @author: Bhumi Desai
+   * @created date: 04/04/2019
+   * @param flagInsert boolean value
+   */
+  public setRecordInsert (flagInsert: boolean): void {
+    this.insertJob$.next(flagInsert);
   }
 
 }

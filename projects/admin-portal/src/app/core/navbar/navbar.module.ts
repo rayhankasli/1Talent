@@ -16,15 +16,15 @@ import { TopbarComponent } from './topbar/topbar.component';
 @NgModule({
   declarations: [
     TopbarComponent,
-    SidebarComponent,
+    SidebarComponent
   ],
   exports: [
     SidebarComponent,
-    TopbarComponent,
+    TopbarComponent
   ],
   imports: [
     AppRoutingModule,
-    CommonModule,
-  ],
+    CommonModule
+  ]
 })
 export class NavbarModule { }

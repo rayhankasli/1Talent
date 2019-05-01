@@ -5,20 +5,19 @@ import { ListComponent } from './list/list.component';
 const routes: Routes = [
   {
     path: '',
-    component: ListComponent,
+    component: ListComponent
   },
   {
     path: 'list',
-    component: ListComponent,
-  },
+    component: ListComponent
+  }
 ];
 
 /**
  * imports the RouterModule and then export it
  */
-
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)]
 })
 export class ManageVacancyRoutingModule { }

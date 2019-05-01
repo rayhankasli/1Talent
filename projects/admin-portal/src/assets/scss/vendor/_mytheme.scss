@@ -1,0 +1,11 @@
+@import "../../../../../admin-portal/src/assets/scss/core/_variables.scss";
+
+.ng2-tag-input[_ngcontent-c9] {
+	border: 1px solid $gray-500 !important;
+	padding: 0.25rem 0.5rem !important;
+    border-radius: 0.2rem !important;
+}
+
+.ng2-tag-input.ng2-tag-input--focused[_ngcontent-c9] {
+	border: 1px solid $gray-700 !important;
+}

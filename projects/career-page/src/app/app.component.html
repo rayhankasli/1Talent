@@ -1,7 +1,19 @@
 <one-talent-header></one-talent-header>
-<main id="main">
-  <one-talent-banner></one-talent-banner>
-  <router-outlet>
-  </router-outlet>
+<main id="main" >
+  <!-- Start: spinner -->
+  <div class="overlay" *ngIf="loaderStatus">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <!-- End: Spinner -->
+  <router-outlet> </router-outlet>
 </main>
 <one-talent-footer></one-talent-footer>

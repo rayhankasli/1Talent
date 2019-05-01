@@ -17,6 +17,7 @@ import { OpenPositionsComponent } from './current-vacancies/open-positions/open-
 import { RecruitmentStatusComponent } from './current-vacancies/recruitment-status/recruitment-status.component';
 import { VacancyCardComponent } from './current-vacancies/vacancy-card/vacancy-card.component';
 import { EmployeeVerficationComponent } from './employee-verfication/employee-verfication.component';
+
 /**
  * Used for declarations CareerComponent CultureComponent DetailsComponent EventsComponent CurrentVacanciesComponent
  * MapComponent OpenPositionsComponent VacancyCardComponent RecruitmentStatusComponent EmployeeVerficationComponent
@@ -42,6 +43,7 @@ import { EmployeeVerficationComponent } from './employee-verfication/employee-ve
     CareerRoutingModule,
     SharedModule,
   ],
+  providers: [],
 })
 // Export the CareerModule
 export class CareerModule { }

@@ -1,0 +1,34 @@
+<!-- Start : Table -->
+<div class="px-2">
+  <table class="table table-borderless data-table">
+    <!-- Table heading -->
+    <tr class="text-secondary-text-color ">
+      <th class="s-no py-0">NO.</th>
+      <th class="domain-name py-0">DOMAIN</th>
+      <th class="owner-name py-0">OWNER</th>
+      <th class="activity-name py-0">ACTIVITY</th>
+      <th class="description py-0">DESCRIPTION</th>
+      <th class="actions text-center py-0">ACTIONS</th>
+    </tr>
+    <!-- Start : Table Body -->
+    <tbody>
+      <tr class="data-table-row"
+        *ngFor="let onboardingList of contentData; let i=index; trackBy: onboardingList?.onboardingActivityId ">
+        <td class="s-no"> {{i+1}} </td>
+        <td class="domain-name">{{ onboardingList.domainName}}</td>
+        <td class="owner-name">{{ onboardingList.ownerName}}</td>
+        <td class="activity-name"> {{onboardingList.activityName}} </td>
+        <td class="description" title="{{ onboardingList.description }}"> {{onboardingList.description}} </td>
+        <td class="actions text-center">
+          <button title="Edit" (click)="updateOnboarding(onboardingList)">
+            <img src="../../../assets/images/logo/actions_edit.png" alt="Edit-icon" class="operation-icon">
+          </button>
+          <button title="Delete" (click)="deleteActivity(onboardingList.onboardingActivityId)">
+            <img src="../../../assets/images/logo/actions_delete.png" alt="delete-icon" class="operation-icon ">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- End : Table -->
+</div>
